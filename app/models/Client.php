@@ -2,6 +2,14 @@
 
 class Client extends Eloquent {
 
+  function getNameAttribute() {
+    
+    if ( ! empty($this->display_name) )
+      return $this->display_name;
+    else
+      return $this->first_name . ' ' . $this->last_name;
+  }
+
   function phone_format() {
 
     $phone = $this->phone;
@@ -29,5 +37,5 @@ class Client extends Eloquent {
 
     return $phone;
   }
-  
+
 }

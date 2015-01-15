@@ -6092,6 +6092,10 @@ th.hide-for-touch {
 /* @include box-shadow(1px,1px,1px,0, #fff, true); */
 /* @include text-shadow(1px,1px,1px, #fff, true); */
 /* @include transition(all, 0.2s, ease-in-out); */
+html, html a {
+  -webkit-font-smoothing: antialiased;
+  text-shadow: 1px 1px 1px rgba(0, 0, 0, 0.004); }
+
 .jumbotron {
   min-height: 300px;
   padding-top: 100px;
@@ -6115,7 +6119,7 @@ dl dt {
   font-weight: bold;
   font-size: 0.75rem;
   text-transform: uppercase;
-  color: #3a3a3a; }
+  color: #989898; }
 
 button, .button {
   text-transform: uppercase;
@@ -6239,6 +6243,42 @@ footer {
   .info-box.alert-close {
     opacity: 0; }
 
+@media print {
+  .small-1 {
+    width: 8.33333%; }
+
+  .small-2 {
+    width: 16.66667%; }
+
+  .small-3 {
+    width: 25%; }
+
+  .small-4 {
+    width: 33.33333%; }
+
+  .small-5 {
+    width: 41.66667%; }
+
+  .small-6 {
+    width: 50%; }
+
+  .small-7 {
+    width: 58.33333%; }
+
+  .small-8 {
+    width: 66.66667%; }
+
+  .small-9 {
+    width: 75%; }
+
+  .small-10 {
+    width: 83.33333%; }
+
+  .small-11 {
+    width: 91.66667%; }
+
+  .small-12 {
+    width: 100%; } }
 ul.pagination {
   display: block;
   min-height: 1.5rem;

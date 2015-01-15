@@ -1,3 +1,8 @@
+html, html a {
+  -webkit-font-smoothing: antialiased;
+  text-shadow: 1px 1px 1px rgba($black, 0.004);
+}
+
 .jumbotron {
   min-height: 300px;
   padding-top: 100px;
@@ -21,7 +26,7 @@ dl dt {
   font-weight: bold;
   font-size: rem-calc(12);
   text-transform: uppercase;
-  color: scale-color($tuatara, $lightness: -15%);
+  color: scale-color($tuatara, $lightness: 45%);
 }
 
 button,.button {
@@ -111,6 +116,14 @@ footer {
       &.warning   { @include alert-style($warning-color); }
       &.info      { @include alert-style($info-color); }
       &.alert-close { opacity: 0}
+    }
+  }
+}
+
+@media print {
+  @for $i from 1 through $total-columns {
+    .small-#{$i} {
+      width: grid-calc($i, $total-columns);
     }
   }
 }

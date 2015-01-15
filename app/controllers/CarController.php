@@ -77,6 +77,9 @@ class CarController extends \BaseController {
 	public function show($id)
 	{
 		//
+		$car = Car::find($id);
+		
+		return View::make('cars.show')->with([ 'car' => $car ]);
 	}
 
 
@@ -113,6 +116,29 @@ class CarController extends \BaseController {
 	public function destroy($id)
 	{
 		//
+	}
+
+
+	/**
+	* Displays the QR Code associated with the resource.
+	*
+	* @param  int  $id
+	* @return Response
+	*/
+	public function qrcode($id)
+	{
+		//
+		$car = Car::find($id);
+
+		// generate the QR code
+		$qr_image = '/tmp/qrcode_' . $car->id . '.png';
+		\PHPQRCode\QRcode::png($car->generate_qr_content(), $qr_image, 'H', 10, 1);
+
+		// base64 encode image
+		$binary = fread(fopen($qr_image, "r"), filesize($qr_image));
+		$base64 = base64_encode($binary);
+
+		return View::make('cars.qrcode')->with([ 'car' => $car, 'qr_image_64' => $base64 ]);
 	}
 
 
