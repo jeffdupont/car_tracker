@@ -6090,43 +6090,19 @@ th.hide-for-touch {
   th.show-for-print {
     display: table-cell !important; } }
 /* @include box-shadow(1px,1px,1px,0, #fff, true); */
+/* @include text-shadow(1px,1px,1px,0, #fff, true); */
 .jumbotron {
   min-height: 300px;
   padding-top: 100px;
   background: #119Ed9;
-  color: #fff;
   margin-bottom: 16px; }
-
-.jumbotron h1,
-.jumbotron h2,
-.jumbotron label {
-  color: #fff; }
-
-.jumbotron a {
-  color: #fff; }
 
 dl dt {
   margin-bottom: 0;
   font-weight: bold;
   font-size: 0.75rem;
   text-transform: uppercase;
-  color: #29353d; }
-
-.socket_stream {
-  height: 65px;
-  overflow-y: auto;
-  font-size: 0.625rem;
-  background: #FFFFFF;
-  border: 1px solid #d9d9d9;
-  padding: 0.3125rem;
-  font-family: monospace; }
-
-table.stats {
-  font-size: 0.625rem; }
-
-table.stats td:first-child {
-  text-transform: uppercase;
-  color: #303E48; }
+  color: #3a3a3a; }
 
 button, .button {
   text-transform: uppercase; }
@@ -6139,10 +6115,6 @@ li .dropdown {
 .text-uppercase {
   text-transform: uppercase; }
 
-.user-email {
-  color: #666666;
-  font-size: 80%; }
-
 .label.alert a,
 .label.success a {
   color: #FFFFFF; }
@@ -6153,14 +6125,6 @@ li .dropdown {
 
 .with-label {
   padding-top: 21px; }
-
-.url-overflow {
-  /* width: 135px; */
-  display: inline-block;
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  font-size: 80%; }
 
 .small-text {
   font-size: 60%; }
@@ -6173,11 +6137,6 @@ li .dropdown {
   width: 100%;
   z-index: 100; }
 
-.claim-name {
-  color: #303E48;
-  font-size: 0.75rem;
-  text-transform: uppercase; }
-
 /* clear out the caret in the nav bar */
 .top-bar-section .has-dropdown a::after {
   content: none; }
@@ -6188,112 +6147,15 @@ li .dropdown {
 .top-bar-section .has-dropdown > a {
   padding-right: 15px !important; }
 
-.pricing-table {
-  min-height: 413px;
-  display: inline-block; }
-
-.pricing-table .title {
-  background-color: #000000;
-  text-transform: uppercase; }
-
-.pricing-table .price {
-  background-color: #303E48;
-  color: #FFFFFF; }
-
-.pricing-table.active .title {
-  background-color: #119Ed9; }
-
-.pricing-table.active .price {
-  background-color: #167EAb; }
-
-/* labels */
-.label.pending,
-.label.draft {
-  background-color: #a0d3e8; }
-
-.label.confirmed,
-.label.resolved {
-  background-color: #43ac6a; }
-
-.label.disregarded {
-  background-color: #Ab3236; }
-
-.label.for-review,
-.label.for_review,
-.label.in-review,
-.label.in_review {
-  background-color: #f08a24; }
-
-.incident-strength {
-  font-size: 300%;
-  font-weight: bold;
-  text-shadow: 1px 1px 1px rgba(0, 0, 0, 0.2); }
-
-#compare {
-  position: relative;
-  height: 500px;
-  overflow: hidden;
-  margin-bottom: 20px; }
-
-#compare #original, #compare #match {
-  height: 500px;
-  position: absolute;
-  overflow: hidden; }
-
-#compare #original {
-  width: 80%;
-  right: 20%;
-  background: #fff;
-  -webkit-box-shadow: -10px 0px 100px -20px black;
-  box-shadow: 0px 0px 100px -20px black; }
-
-#compare #match {
-  width: 80%;
-  left: 20%;
-  background: #fff;
-  -webkit-box-shadow: -10px 0px 100px -20px black;
-  box-shadow: -10px 0px 100px -20px black; }
-
-#compare iframe {
-  border: 0;
-  height: 405px;
-  width: 100%; }
-
 section {
   padding-bottom: 50px; }
 
 footer {
   background-color: #e7e7e7;
-  color: #167EAb;
+  color: #000000;
   position: fixed;
   width: 100%;
   bottom: 0; }
-
-.radial-graph .background {
-  fill: #FFFFFF;
-  fill-opacity: 0.01; }
-
-.radial-graph .component {
-  fill: #e1e1e1; }
-
-.radial-graph .component .label {
-  text-anchor: middle;
-  fill: #0000FF; }
-
-.radial-graph .arc {
-  stroke-weight: 0.1;
-  fill: #4e8fff; }
-
-.radial-graph .arc2 {
-  stroke-weight: 0.1;
-  fill: #3660b0; }
-
-.radial-graph .label {
-  text-anchor: middle; }
-
-.radial-graph .radial-svg {
-  display: block;
-  margin: 0 auto; }
 
 .info-box {
   border-style: solid;

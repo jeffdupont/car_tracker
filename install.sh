@@ -21,6 +21,11 @@ sed -i "s/error_reporting = .*/error_reporting = E_ALL/" /etc/php5/apache2/php.i
 sed -i "s/display_errors = .*/display_errors = On/" /etc/php5/apache2/php.ini
 sed -i "s/disable_functions = .*/disable_functions = /" /etc/php5/cli/php.ini
 
+sed -i "s/export APACHE_RUN_USER=www-data.*/export APACHE_RUN_USER=vagrant/" /etc/apache2/envvars
+sed -i "s/export APACHE_RUN_GROUP=www-data.*/export APACHE_RUN_GROUP=vagrant/" /etc/apache2/envvars
+
+sed -i "s/bind-address.*/bind-address = 0.0.0.0/" /etc/mysql/my.cnf
+
 sudo service apache2 restart
 
 curl -sS https://getcomposer.org/installer | php
@@ -46,3 +51,6 @@ appendonly no
 EOF
 
 sudo service redis-server restart
+
+mysql -uroot -proot -e "GRANT ALL PRIVILEGES ON *.* TO 'root'@'%' IDENTIFIED BY 'root';"
+mysql -uroot -proot -e "GRANT ALL PRIVILEGES ON *.* TO 'root'@'localhost' IDENTIFIED BY 'root';"
