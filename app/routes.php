@@ -15,7 +15,9 @@ Route::resource('session', 'SessionController', [ 'only' => ['index', 'store', '
 //
 Route::group([ 'before' => 'auth' ], function()
 {
+	Route::get('dashboard', [ 'as' => 'dashboard', 'uses' => 'HomeController@dashboard' ]);
+
 	Route::resource('users', 'UserController');
 	Route::resource('cars', 'CarController');
-	Route::resource('clients', 'ClientController');	
+	Route::resource('clients', 'ClientController');
 });

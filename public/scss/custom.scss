@@ -8,7 +8,11 @@
   @include text-shadow(1px, 1px, 1px, rgba($black, .2));
 }
 
-.top-bar .name h1 a, .top-bar .name h2 a, .top-bar .name h3 a, .top-bar .name h4 a, .top-bar .name p a, .top-bar .name span a {
+.top-bar .name h1 a, .top-bar .name h2 a, .top-bar .name h3 a, .top-bar .name h4 a, .top-bar .name p a, .top-bar .name span a,
+.top-bar-section li:not(.has-form) a:not(.button),
+.top-bar-section li:not(.has-form) a:not(.button):hover,
+.top-bar-section .dropdown li:not(.has-form):not(.active) > a:not(.button),
+.breadcrumbs > * a {
   color: $black;
 }
 
@@ -24,6 +28,10 @@ button,.button {
   text-transform: uppercase;
   @include box-shadow(0, 2px, 5px, 0, rgba($black, 0.26));
   @include transition(box-shadow, 0.28s, cubic-bezier(0.4, 0, 0.2, 1));
+
+  &.flat {
+    @include box-shadow(0, 0, 0, 0, rgba($black, 0.26));
+  }
 
   &:hover {
     @include box-shadow(0, 8px, 17px, 0, rgba($black, 0.2));

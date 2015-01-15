@@ -6103,7 +6103,11 @@ th.hide-for-touch {
   -moz-text-shadow: 1px 1px 1px rgba(0, 0, 0, 0.2);
   text-shadow: 1px 1px 1px rgba(0, 0, 0, 0.2); }
 
-.top-bar .name h1 a, .top-bar .name h2 a, .top-bar .name h3 a, .top-bar .name h4 a, .top-bar .name p a, .top-bar .name span a {
+.top-bar .name h1 a, .top-bar .name h2 a, .top-bar .name h3 a, .top-bar .name h4 a, .top-bar .name p a, .top-bar .name span a,
+.top-bar-section li:not(.has-form) a:not(.button),
+.top-bar-section li:not(.has-form) a:not(.button):hover,
+.top-bar-section .dropdown li:not(.has-form):not(.active) > a:not(.button),
+.breadcrumbs > * a {
   color: #000000; }
 
 dl dt {
@@ -6123,6 +6127,10 @@ button, .button {
   -ms-transition: box-shadow 0.28s cubic-bezier(0.4, 0, 0.2, 1);
   -o-transition: box-shadow 0.28s cubic-bezier(0.4, 0, 0.2, 1);
   transition: box-shadow 0.28s cubic-bezier(0.4, 0, 0.2, 1); }
+  button.flat, .button.flat {
+    -webkit-box-shadow: 0 0 0 0 rgba(0, 0, 0, 0.26);
+    -moz-box-shadow: 0 0 0 0 rgba(0, 0, 0, 0.26);
+    box-shadow: 0 0 0 0 rgba(0, 0, 0, 0.26); }
   button:hover, .button:hover {
     -webkit-box-shadow: 0 8px 17px 0 rgba(0, 0, 0, 0.2);
     -moz-box-shadow: 0 8px 17px 0 rgba(0, 0, 0, 0.2);

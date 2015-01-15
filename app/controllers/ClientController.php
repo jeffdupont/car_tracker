@@ -1,6 +1,6 @@
 <?php
 
-class CarController extends \BaseController {
+class ClientController extends \BaseController {
 
 	/**
 	 * Display a listing of the resource.
@@ -10,9 +10,6 @@ class CarController extends \BaseController {
 	public function index()
 	{
 		//
-		$cars = Car::where('status', '=', CarStatus::ACTIVE)->orderBy('created_at', 'desc');
-
-		return View::make('cars.index')->with([ 'cars' => $cars->paginate(25), 'filter' => [] ]);
 	}
 
 
@@ -23,14 +20,8 @@ class CarController extends \BaseController {
 	 */
 	public function create()
 	{
-		// get the list of accounts
-		$clients = Client::selectRaw('concat(company_name, " ", display_name) as display_name, id')
-									->where('status', '=', ClientStatus::ACTIVE)
-									->orderBy('company_name', 'asc')
-									->orderBy('display_name', 'asc')
-									->lists('display_name', 'id');
-
-		return View::make('cars.create')->with([ 'clients' => $clients ]);
+		//
+		return View::make('clients.create');
 	}
 
 
@@ -43,28 +34,32 @@ class CarController extends \BaseController {
 	{
 		//
 		$validation = Validator::make(Input::all(), [
-			'client_id' => 'required|integer',
-			'make'      => 'required',
-			'model'     => 'required',
-			'year'      => 'required|integer',
+			'first_name' => 'required',
+			'last_name'  => 'required',
+			'email'      => 'required|email|unique:clients,email',
 		]);
 
 		if ( $validation->fails() ) {
 			return Redirect::back()->withInput()->withErrors($validation);
 		}
 
-		$car = new Car();
+		$client = new Client();
 
 		// assign values
-		$car->client_id = Input::get('client_id');
-		$car->make = Input::get('make');
-		$car->model = Input::get('model');
-		$car->year = Input::get('year');
-		$car->vin = Input::get('vin');
-		$car->status = CarStatus::ACTIVE;
-		$car->save();
+		$client->company_name = Input::get('company_name');
+		$client->first_name = Input::get('first_name');
+		$client->last_name = Input::get('last_name');
+		$client->display_name = ( ! empty(Input::get('display_name')) ) ? Input::get('display_name') : ($client->first_name . ' ' . $client->last_name);
+		$client->address = Input::get('address');
+		$client->city = Input::get('city');
+		$client->state = Input::get('state');
+		$client->zip = Input::get('zip');
+		$client->email = Input::get('email');
+		$client->phone = Input::get('phone');
+		$client->status = ClientStatus::ACTIVE;
+		$client->save();
 
-		return Redirect::route('cars.show', $car->id)->with('success', 'Car stored successfully.');
+		return Redirect::route('clients.show', $client->id)->with('success', 'Client created successfully.');
 	}
 
 
