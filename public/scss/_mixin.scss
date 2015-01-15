@@ -11,15 +11,24 @@
 }
 /* @include box-shadow(1px,1px,1px,0, #fff, true); */
 
-@mixin text-shadow($top, $left, $blur, $size, $color, $inset: false) {
+@mixin text-shadow($top, $left, $blur, $color, $inset: false) {
   @if $inset {
-    -webkit-text-shadow:inset $top $left $blur $size $color;
-    -moz-text-shadow:inset $top $left $blur $size $color;
-    text-shadow:inset $top $left $blur $size $color;
+    -webkit-text-shadow:inset $top $left $blur $color;
+    -moz-text-shadow:inset $top $left $blur $color;
+    text-shadow:inset $top $left $blur $color;
   } @else {
-    -webkit-text-shadow: $top $left $blur $size $color;
-    -moz-text-shadow: $top $left $blur $size $color;
-    text-shadow: $top $left $blur $size $color;
+    -webkit-text-shadow: $top $left $blur $color;
+    -moz-text-shadow: $top $left $blur $color;
+    text-shadow: $top $left $blur $color;
   }
 }
-/* @include text-shadow(1px,1px,1px,0, #fff, true); */
+/* @include text-shadow(1px,1px,1px, #fff, true); */
+
+@mixin transition($transition-property, $transition-time, $method) {
+  -webkit-transition: $transition-property $transition-time $method;
+  -moz-transition: $transition-property $transition-time $method;
+  -ms-transition: $transition-property $transition-time $method;
+  -o-transition: $transition-property $transition-time $method;
+  transition: $transition-property $transition-time $method;
+}
+/* @include transition(all, 0.2s, ease-in-out); */

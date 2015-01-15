@@ -116,21 +116,11 @@ $white       : #FFFFFF;
 // $black       : #000000;
 
 // We use these as default colors throughout
-$cyan: #119Ed9;
-$cyan-dark: #167EAb;
-$cherry: #d9393d;
-$cherry-dark: #Ab3236;
-$smoke-gray: #303E48;
-$pending: #a0d3e8;
-$confirmed: #43ac6a;
-$disregarded: $cherry-dark;
-$for_review: #f08a24;
-
-$primary-color: $cyan;
-$primary-color-dark: $cyan-dark;
-$secondary-color: #e7e7e7;
-$alert-color: $cherry;
-$alert-color-dark: $cherry-dark;
+$primary-color: #F3C32F;
+$primary-color-dark: #A6AB93;
+$secondary-color: #F8F5E3;
+$alert-color: #CC0002;
+$alert-color-dark: scale-color($alert-color, $lightness: -15%);
 // $success-color: #43AC6A;
 // $warning-color: #f08a24;
 // $info-color: #a0d3e8;

@@ -4,6 +4,13 @@
   background: $primary-color;
   margin-bottom: 16px;
 }
+.jumbotron a {
+  @include text-shadow(1px, 1px, 1px, rgba($black, .2));
+}
+
+.top-bar .name h1 a, .top-bar .name h2 a, .top-bar .name h3 a, .top-bar .name h4 a, .top-bar .name p a, .top-bar .name span a {
+  color: $black;
+}
 
 dl dt {
   margin-bottom: 0;
@@ -15,6 +22,12 @@ dl dt {
 
 button,.button {
   text-transform: uppercase;
+  @include box-shadow(0, 2px, 5px, 0, rgba($black, 0.26));
+  @include transition(box-shadow, 0.28s, cubic-bezier(0.4, 0, 0.2, 1));
+
+  &:hover {
+    @include box-shadow(0, 8px, 17px, 0, rgba($black, 0.2));
+  }
 }
 
 li .dropdown {

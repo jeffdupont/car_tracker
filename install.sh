@@ -24,9 +24,13 @@ sed -i "s/disable_functions = .*/disable_functions = /" /etc/php5/cli/php.ini
 sed -i "s/export APACHE_RUN_USER=www-data.*/export APACHE_RUN_USER=vagrant/" /etc/apache2/envvars
 sed -i "s/export APACHE_RUN_GROUP=www-data.*/export APACHE_RUN_GROUP=vagrant/" /etc/apache2/envvars
 
-sed -i "s/bind-address.*/bind-address = 0.0.0.0/" /etc/mysql/my.cnf
+sudo ln -s /var/www/conf/vagrant.conf /etc/apache2/sites-enabled/vagrant.conf
 
 sudo service apache2 restart
+
+sed -i "s/bind-address.*/bind-address = 0.0.0.0/" /etc/mysql/my.cnf
+
+sudo service mysql restart
 
 curl -sS https://getcomposer.org/installer | php
 sudo mv composer.phar /usr/local/bin/composer
