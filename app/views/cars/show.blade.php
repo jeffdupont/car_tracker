@@ -3,14 +3,16 @@
 
 @section('breadcrumb')
 <li class=""><a href="{{ URL::to('cars') }}">Cars</a></li>
-<li class="current"><a href="#">{{ $car->details() }}</a></li>
+<li class="current"><a href="#">{{ $car->display() }}</a></li>
 @stop
 
 @section('content')
 <div class="row">
   <div class="small-12 columns">
-    <h1>{{ $car->details() }}</h1>
+    <img src="//placehold.it/250x250" class="pull-left car-image-main">
+    <h1>{{ $car->display() }}</h1>
     <p>VIN: {{ $car->vin }}</p>
+    <a href="{{ URL::route('cars.edit', $car->id) }}" class="button tiny secondary">Edit</a>
   </div>
 </div>
 

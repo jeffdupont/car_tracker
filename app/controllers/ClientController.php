@@ -72,6 +72,9 @@ class ClientController extends \BaseController {
 	public function show($id)
 	{
 		//
+		$client = Client::find($id);
+
+		return View::make('clients.show')->with([ 'client' => $client ]);
 	}
 
 
@@ -84,6 +87,9 @@ class ClientController extends \BaseController {
 	public function edit($id)
 	{
 		//
+		$client = Client::find($id);
+
+		return View::make('clients.edit')->with([ 'client' => $client ]);
 	}
 
 
@@ -96,6 +102,33 @@ class ClientController extends \BaseController {
 	public function update($id)
 	{
 		//
+		$validation = Validator::make(Input::all(), [
+			'first_name' => 'required',
+			'last_name'  => 'required',
+			'email'      => 'required|email|unique:clients,email,' . $id,
+		]);
+
+		if ( $validation->fails() ) {
+			return Redirect::back()->withInput()->withErrors($validation);
+		}
+
+		$client = Client::find($id);
+
+		// assign values
+		$client->company_name = Input::get('company_name');
+		$client->first_name = Input::get('first_name');
+		$client->last_name = Input::get('last_name');
+		$client->display_name = ( ! empty(Input::get('display_name')) ) ? Input::get('display_name') : ($client->first_name . ' ' . $client->last_name);
+		$client->address = Input::get('address');
+		$client->city = Input::get('city');
+		$client->state = Input::get('state');
+		$client->zip = Input::get('zip');
+		$client->email = Input::get('email');
+		$client->phone = Input::get('phone');
+		// $client->status = ClientStatus::ACTIVE;
+		$client->save();
+
+		return Redirect::route('clients.show', $client->id)->with('success', 'Client has been updated successfully.');
 	}
 
 

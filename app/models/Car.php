@@ -2,7 +2,7 @@
 
 class Car extends Eloquent {
 
-  function details() {
+  function display() {
     return $this->make . ' ' . $this->model . ' ' . $this->year;
   }
 

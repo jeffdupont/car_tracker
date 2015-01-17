@@ -8147,6 +8147,15 @@ html, html a {
 .breadcrumbs > * a {
   color: #000000; }
 
+address {
+  font-style: normal; }
+
+.car-list img {
+  margin-right: 0.625rem; }
+
+.car-image-main {
+  margin-right: 0.9375rem; }
+
 dl dt {
   margin-bottom: 0;
   font-weight: bold;

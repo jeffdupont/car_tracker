@@ -21,6 +21,17 @@ html, html a {
   color: $black;
 }
 
+address {
+  font-style: normal;
+}
+
+.car-list img {
+  margin-right: rem-calc(10);
+}
+.car-image-main {
+  margin-right: rem-calc(15);
+}
+
 dl dt {
   margin-bottom: 0;
   font-weight: bold;

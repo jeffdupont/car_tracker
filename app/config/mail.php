@@ -54,7 +54,7 @@ return array(
 	|
 	*/
 
-	'from' => array('address' => null, 'name' => null),
+	'from' => array('address' => 'support@scottsdalevault.com', 'name' => 'Scottsdale Vault'),
 
 	/*
 	|--------------------------------------------------------------------------

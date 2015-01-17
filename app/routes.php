@@ -21,5 +21,8 @@ Route::group([ 'before' => 'auth' ], function()
 	Route::resource('clients', 'ClientController');
 
 	Route::resource('cars', 'CarController');
-	Route::get('cars/{cars}/qrcode', [ 'as' => 'cars.qrcode', 'uses' => 'CarController@qrcode' ]);	
+	Route::get('cars/{cars}/qrcode', [ 'as' => 'cars.qrcode', 'uses' => 'CarController@qrcode' ]);
 });
+
+// hackish
+Route::get('dist/css/app.css.map', function() {});

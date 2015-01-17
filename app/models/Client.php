@@ -3,7 +3,7 @@
 class Client extends Eloquent {
 
   function getNameAttribute() {
-    
+
     if ( ! empty($this->display_name) )
       return $this->display_name;
     else
@@ -38,4 +38,12 @@ class Client extends Eloquent {
     return $phone;
   }
 
+
+  /*
+  RELATIONSHIPS
+  */
+  function cars() {
+    return $this->hasMany('Car');
+  }
+  
 }
