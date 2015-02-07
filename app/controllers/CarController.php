@@ -47,6 +47,7 @@ class CarController extends \BaseController {
 			'make'      => 'required',
 			'model'     => 'required',
 			'year'      => 'required|integer',
+			'mileage'   => 'required|integer',
 		]);
 
 		if ( $validation->fails() ) {
@@ -61,6 +62,7 @@ class CarController extends \BaseController {
 		$car->model = Input::get('model');
 		$car->year = Input::get('year');
 		$car->vin = Input::get('vin');
+		$car->mileage = Input::get('mileage');
 		$car->status = CarStatus::ACTIVE;
 		$car->save();
 
@@ -78,7 +80,7 @@ class CarController extends \BaseController {
 	{
 		//
 		$car = Car::find($id);
-		
+
 		return View::make('cars.show')->with([ 'car' => $car ]);
 	}
 
@@ -92,6 +94,16 @@ class CarController extends \BaseController {
 	public function edit($id)
 	{
 		//
+		$car = Car::find($id);
+
+		$clients = Client::selectRaw('concat(company_name, " ", display_name) as display_name, id')
+									->where('status', '=', ClientStatus::ACTIVE)
+									->orderBy('company_name', 'asc')
+									->orderBy('display_name', 'asc')
+									->lists('display_name', 'id');
+
+
+		return View::make('cars.edit')->with([ 'car' => $car, 'clients' => $clients ]);
 	}
 
 
@@ -104,6 +116,31 @@ class CarController extends \BaseController {
 	public function update($id)
 	{
 		//
+		$validation = Validator::make(Input::all(), [
+			'client_id' => 'required|integer',
+			'make'      => 'required',
+			'model'     => 'required',
+			'year'      => 'required|integer',
+			'mileage'   => 'required|integer',
+		]);
+
+		if ( $validation->fails() ) {
+			return Redirect::back()->withInput()->withErrors($validation);
+		}
+
+		$car = Car::find($id);
+
+		// assign values
+		$car->client_id = Input::get('client_id');
+		$car->make = Input::get('make');
+		$car->model = Input::get('model');
+		$car->year = Input::get('year');
+		$car->vin = Input::get('vin');
+		$car->mileage = Input::get('mileage');
+		$car->status = Input::get('status');
+		$car->save();
+
+		return Redirect::route('cars.show', $car->id)->with('success', 'Car stored successfully.');
 	}
 
 

@@ -58,6 +58,33 @@
   </div>
 </div>
 
+<div class="row">
+  <div class="small-12 large-3 columns">
+    <label for="mileage" class="right inline">Mileage</label>
+  </div>
+  <div class="small-12 large-9 columns {{ ($errors->first('mileage')) ? 'error' : '' }}">
+    {{ Form::number('mileage', Input::old('mileage') ?: (!empty($car) ? $car->mileage : ''), [ 'min' => 0 ]) }}
+    @if($errors->first('mileage'))<small class="error">{{ $errors->first('mileage') }}</small>@endif
+  </div>
+</div>
+
+@if( isset($car) )
+<div class="row">
+  <div class="small-12 large-3 columns">
+    <label for="" class="right inline">Status</label>
+  </div>
+  <div class="small-12 large-1 columns {{ ($errors->first('do_crawl')) ? 'error' : '' }} end">
+    <label for="status" class="right inline">
+      <div class="switch">
+        {{ Form::checkbox('status', 1, Input::old('status') ? Input::old('status') : $car->status, [ 'id' => 'status' ]) }}
+        <label for="status">Status</label>
+      </div>
+    </label>
+    @if($errors->first('status'))<small class="error">{{ $errors->first('status') }}</small>@endif
+  </div>
+</div>
+@endif
+
 <hr>
 
 @if( ! empty($car) )

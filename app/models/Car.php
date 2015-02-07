@@ -27,6 +27,22 @@ class Car extends Eloquent {
     return $content;
   }
 
+  function get_status() {
+    //
+    switch($this->status) {
+      case CarStatus::DEACTIVATED:
+        $status = 'deactivated';
+        break;
+
+      case CarStatus::ACTIVE:
+        $status = 'active';
+        break;
+    }
+
+    return $status;
+  }
+
+
 
   /*
     RELATIONSHIPS
