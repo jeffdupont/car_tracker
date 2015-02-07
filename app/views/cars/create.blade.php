@@ -15,9 +15,9 @@
 </div>
 
 <div class="row">
-  <div class="small-12 large-8 columns">
+  {{ Form::open([ 'route' => 'cars.store' ]) }}
 
-    {{ Form::open([ 'route' => 'cars.store' ]) }}
+  <div class="small-12 large-8 columns">
 
     @include('cars.form')
 
@@ -27,9 +27,10 @@
         {{ Form::button('Save', [ 'type' => 'submit', 'class' => 'button alert pull-right' ]) }}
       </div>
     </div>
-    {{ Form::close() }}
 
   </div>
+
+  {{ Form::close() }}
 </div>
 
 @stop

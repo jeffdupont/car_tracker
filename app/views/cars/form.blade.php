@@ -68,10 +68,12 @@
   </div>
 </div>
 
-@if( isset($car) )
+<hr>
+
+@if( ! empty($car) )
 <div class="row">
   <div class="small-12 large-3 columns">
-    <label for="" class="right inline">Status</label>
+    <label for="" class="right inline">Active</label>
   </div>
   <div class="small-12 large-1 columns {{ ($errors->first('do_crawl')) ? 'error' : '' }} end">
     <label for="status" class="right inline">
@@ -83,11 +85,6 @@
     @if($errors->first('status'))<small class="error">{{ $errors->first('status') }}</small>@endif
   </div>
 </div>
-@endif
-
-<hr>
-
-@if( ! empty($car) )
 
 <hr>
 @endif

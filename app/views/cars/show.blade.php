@@ -10,20 +10,22 @@
 <div class="row">
   <div class="small-12 columns">
     <img src="//placehold.it/250x250" class="pull-left car-image-main">
-    <h1>{{ $car->display() }}</h1>
-    <dl>
-      <dt>VIN:</dt>
-      <dd>{{ $car->vin }}</dd>
-
-      <dt>Mileage:</dt>
-      <dd>{{ $car->mileage }}</dd>
-    </dl>
-    @if( $car->status != CarStatus::ACTIVE )
     <div>
-      <span class="label alert">{{ $car->get_status() }}</span>
+      <h1>{{ $car->display() }}</h1>
+      <dl>
+        <dt>VIN:</dt>
+        <dd>{{ $car->vin }}</dd>
+
+        <dt>Mileage:</dt>
+        <dd>{{ $car->mileage }}</dd>
+      </dl>
+      @if( $car->status != CarStatus::ACTIVE )
+      <div>
+        <span class="label alert">{{ $car->get_status() }}</span>
+      </div>
+      @endif
+      <a href="{{ URL::route('cars.edit', $car->id) }}" class="button tiny secondary">Edit</a>
     </div>
-    @endif
-    <a href="{{ URL::route('cars.edit', $car->id) }}" class="button tiny secondary">Edit</a>
   </div>
 </div>
 

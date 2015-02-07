@@ -10,14 +10,18 @@
 <div class="row">
   <div class="small-12 columns">
     <h1>Edit Car</h1>
-    <p>Add a new car to the selected client</p>
+    <p>Update the car details</p>
   </div>
 </div>
 
 <div class="row">
-  <div class="small-12 large-8 columns">
+  {{ Form::open([ 'route' => [ 'cars.update', $car->id ], 'method' => 'PUT' ]) }}
 
-    {{ Form::open([ 'route' => [ 'cars.update', $car->id ], 'method' => 'PUT' ]) }}
+  <div class="small-12 large-4 large-push-8  columns">
+    @include('cars.image')
+  </div>
+
+  <div class="small-12 large-8 large-pull-4 columns">
 
     @include('cars.form')
 
@@ -27,9 +31,10 @@
         {{ Form::button('Save', [ 'type' => 'submit', 'class' => 'button alert pull-right' ]) }}
       </div>
     </div>
-    {{ Form::close() }}
 
   </div>
+
+  {{ Form::close() }}
 </div>
 
 @stop
