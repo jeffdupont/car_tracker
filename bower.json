@@ -18,7 +18,8 @@
   ],
   "dependencies": {
     "font-awsome": "~4.2.0",
-    "moment": "~2.8.4"
+    "moment": "~2.8.4",
+    "lite-uploader": "~2.1.2"
   },
   "devDependencies": {
     "foundation": "~5.5.0"

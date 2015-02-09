@@ -22,6 +22,9 @@ Route::group([ 'before' => 'auth' ], function()
 
 	Route::resource('cars', 'CarController');
 	Route::get('cars/{cars}/qrcode', [ 'as' => 'cars.qrcode', 'uses' => 'CarController@qrcode' ]);
+	Route::get('cars/{cars}/image', [ 'as' => 'cars.image', 'uses' => 'CarController@image' ]);
+
+	Route::post('cars/{cars}/upload', [ 'as' => 'cars.upload', 'uses' => 'UtilitiesController@upload' ]);
 });
 
 // hackish

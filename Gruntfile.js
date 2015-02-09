@@ -24,6 +24,13 @@ module.exports = function(grunt) {
         src: '**',
         dest: 'public/dist/fonts/',
         filter: 'isFile',
+      },
+      liteuploader: {
+        expand: true,
+        cwd: 'public/vendor/components/lite-uploader/',
+        src: '*.js',
+        dest: 'public/dist/lite-uploader/',
+        filter: 'isFile',
       }
     },
 
@@ -79,12 +86,13 @@ module.exports = function(grunt) {
   grunt.loadNpmTasks('grunt-ng-annotate');
 
   grunt.registerTask('default', [
-  'sass',
-  'copy:modern',
-  'copy:fonts',
-  'concat:css',
-  'cssmin:css',
-  'concat:js',
-  'uglify:js'
+    'sass',
+    'copy:modern',
+    'copy:fonts',
+    'copy:liteuploader',
+    'concat:css',
+    'cssmin:css',
+    'concat:js',
+    'uglify:js'
   ]);
 };

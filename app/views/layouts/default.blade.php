@@ -110,9 +110,11 @@
   <script src="/dist/js/vendor/fastclick.js"></script>
 
   @if(App::environment() == "production")
+  <script src="/dist/lite-uploader/jquery.liteuploader.min.js"></script>
   <script src="/dist/js/foundation.min.js"></script>
   <script src="/dist/js/compiled.min.js"></script>
   @else
+  <script src="/dist/lite-uploader/jquery.liteuploader.js"></script>
   <script src="/dist/js/foundation.js"></script>
   <script src="/dist/js/compiled.js"></script>
   @endif

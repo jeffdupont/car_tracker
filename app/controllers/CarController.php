@@ -157,11 +157,11 @@ class CarController extends \BaseController {
 
 
 	/**
-	* Displays the QR Code associated with the resource.
-	*
-	* @param  int  $id
-	* @return Response
-	*/
+	 * Displays the QR Code associated with the resource.
+	 *
+	 * @param  int  $id
+	 * @return Response
+	 */
 	public function qrcode($id)
 	{
 		//
@@ -176,6 +176,19 @@ class CarController extends \BaseController {
 		$base64 = base64_encode($binary);
 
 		return View::make('cars.qrcode')->with([ 'car' => $car, 'qr_image_64' => $base64 ]);
+	}
+
+
+	/**
+ 	 * Displays the image associated with the resource.
+	 *
+	 * @param  int  $id
+	 * @return Response
+	 */
+	public function image($id)
+	{
+		//
+		return Image::make(storage_path() . Config::get('upload.path') . '/' . $id . '.jpg')->response();
 	}
 
 
