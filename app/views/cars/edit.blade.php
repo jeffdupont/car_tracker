@@ -3,7 +3,7 @@
 
 @section('breadcrumb')
 <li class=""><a href="{{ URL::to('cars') }}">Cars</a></li>
-<li class="current"><a href="#">Create</a></li>
+<li class="current"><a href="#">Edit</a></li>
 @stop
 
 @section('content')
@@ -36,5 +36,4 @@
 
   {{ Form::close() }}
 </div>
-
 @stop

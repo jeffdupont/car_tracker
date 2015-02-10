@@ -40,6 +40,10 @@ dl dt {
   color: scale-color($tuatara, $lightness: 45%);
 }
 
+.error .postfix.button {
+  margin: 0;
+}
+
 button,.button {
   text-transform: uppercase;
   @include box-shadow(0, 2px, 5px, 0, rgba($black, 0.26));

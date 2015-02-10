@@ -1,5 +1,41 @@
 
 
+@section('script')
+@parent
+  <script>
+  $(document).ready(function() {
+
+    $(':input[name=client_id]').on('change', function() {
+      if( $(this).val() !== '0' && $('#create-client').is(':visible') ) {
+        $('#create-client').slideUp(null, function() {
+          toggle_button( $('#create-client-button') );
+        });
+      }
+    });
+    $('#create-client-button').on('click', function() {
+      var self = this;
+      $('#create-client').slideToggle(null, function() {
+        toggle_button( self );
+      });
+    });
+
+    @if( ! (Input::old('client_id') == '0' || $errors->first('first_name') || $errors->first('last_name') || $errors->first('email')) )
+    $('#create-client').hide();
+    @endif
+
+    toggle_button( $('#create-client-button') );
+  });
+
+  function toggle_button( button ) {
+    if( $('#create-client').is(':visible') ) {
+      $(':input[name=client_id]').val('0');
+      $(button).empty().append('<i class="fa fa-minus"></i>');
+    } else {
+      $(button).empty().append('<i class="fa fa-plus"></i>');
+    }
+  }
+  </script>
+@stop
 
 <div class="row">
   <div class="small-12 large-3 columns">
@@ -8,14 +44,18 @@
   <div class="small-12 large-9 columns {{ ($errors->first('client_id')) ? 'error' : '' }}">
     <div class="row collapse">
       <div class="small-10 columns">
-        {{ Form::select('client_id', $clients, Input::old('client_id') ?: (!empty($car) ? $car->client_id : '')) }}
+        {{ Form::select('client_id', array_merge([ '' => 'Select Client', 0 => 'New Client' ], $clients), Input::old('client_id') ?: (!empty($car) ? $car->client_id : '')) }}
       </div>
       <div class="small-2 columns">
-        <a href="{{ URL::route('clients.create') }}" class="button postfix flat"><i class="fa fa-plus"></i></a>
+        <a href="#" id="create-client-button" data-show="create-client" class="button postfix flat"><i class="fa fa-plus"></i></a>
       </div>
     </div>
     @if($errors->first('client_id'))<small class="error">{{ $errors->first('client_id') }}</small>@endif
   </div>
+</div>
+
+<div id="create-client" class="panel">
+@include('clients.form')
 </div>
 
 <div class="row">

@@ -15,51 +15,52 @@
 
 
 @section('script')
-<script>
-  $(document).ready(function () {
-    $('.file-upload').liteUploader({
-      script: 'upload',
-      rules: {
-        allowedFileTypes: 'image/jpeg,image/png,image/gif',
-        // maxSize: 2500000
-      }
-    })
-    .on('lu:errors', function (e, errors) {
-      console.log(errors);
-      // var isErrors = false;
-      // $('#display').html('');
-      // $.each(errors, function (i, error) {
-      //   if (error.errors.length > 0) {
-      //     isErrors = true;
-      //     $.each(error.errors, function (i, errorInfo) {
-      //       $('#display').append('<br />ERROR! File: ' + error.name + ' - Info: ' + JSON.stringify(errorInfo));
-      //     });
-      //   }
-      // });
-      // if (!isErrors) {
-      //   $('#display').append('<br />No errors');
-      // }
-    })
-    .on('lu:before', function (e, files) {
-      console.log(files);
-      // $('#display').append('<br />Uploading ' + files.length + ' file(s)...');
-    })
-    .on('lu:progress', function (e, percentage) {
-      console.log(percentage);
-      // $('#display').append('<br />Progress ' + percentage + '%<br />');
-    })
-    .on('lu:success', function (e, response) {
-      var img = $("#car_image img");
-      if ( ! img ) img = $("<img />");
-      var new_image = response + '?' + Date.now();
-      img.attr('src', new_image).load(function() {
-          if (!this.complete || typeof this.naturalWidth == "undefined" || this.naturalWidth == 0) {
-              console.log('broken image!: ' + response);
-          } else {
-              $("#car_image").empty().append(img);
-          }
+@parent
+  <script>
+    $(document).ready(function () {
+      $('.file-upload').liteUploader({
+        script: 'upload',
+        rules: {
+          allowedFileTypes: 'image/jpeg,image/png,image/gif',
+          // maxSize: 2500000
+        }
+      })
+      .on('lu:errors', function (e, errors) {
+        console.log(errors);
+        // var isErrors = false;
+        // $('#display').html('');
+        // $.each(errors, function (i, error) {
+        //   if (error.errors.length > 0) {
+        //     isErrors = true;
+        //     $.each(error.errors, function (i, errorInfo) {
+        //       $('#display').append('<br />ERROR! File: ' + error.name + ' - Info: ' + JSON.stringify(errorInfo));
+        //     });
+        //   }
+        // });
+        // if (!isErrors) {
+        //   $('#display').append('<br />No errors');
+        // }
+      })
+      .on('lu:before', function (e, files) {
+        console.log(files);
+        // $('#display').append('<br />Uploading ' + files.length + ' file(s)...');
+      })
+      .on('lu:progress', function (e, percentage) {
+        console.log(percentage);
+        // $('#display').append('<br />Progress ' + percentage + '%<br />');
+      })
+      .on('lu:success', function (e, response) {
+        var img = $("#car_image img");
+        if ( ! img ) img = $("<img />");
+        var new_image = response + '?' + Date.now();
+        img.attr('src', new_image).load(function() {
+            if (!this.complete || typeof this.naturalWidth == "undefined" || this.naturalWidth == 0) {
+                console.log('broken image!: ' + response);
+            } else {
+                $("#car_image").empty().append(img);
+            }
+        });
       });
     });
-  });
-</script>
+  </script>
 @stop

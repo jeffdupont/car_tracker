@@ -8163,6 +8163,9 @@ dl dt {
   text-transform: uppercase;
   color: #989898; }
 
+.error .postfix.button {
+  margin: 0; }
+
 button, .button {
   text-transform: uppercase;
   -webkit-box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.26);

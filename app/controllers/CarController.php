@@ -54,10 +54,20 @@ class CarController extends \BaseController {
 			return Redirect::back()->withInput()->withErrors($validation);
 		}
 
+		$client_id = Input::get('client_id');
+		if ( $client_id == 0 ) {
+			$client = $this->create_client();
+			$client_id = $client->id;
+		}
+
+		if ( ! $client_id ) {
+			return Redirect::back()->withInput()->withErrors([ 'client_id' => 'Error assigning client. Please try again.' ]);
+		}
+
 		$car = new Car();
 
 		// assign values
-		$car->client_id = Input::get('client_id');
+		$car->client_id = $client_id;
 		$car->make = Input::get('make');
 		$car->model = Input::get('model');
 		$car->year = Input::get('year');
@@ -67,6 +77,44 @@ class CarController extends \BaseController {
 		$car->save();
 
 		return Redirect::route('cars.show', $car->id)->with('success', 'Car stored successfully.');
+	}
+
+
+	/**
+	 * Store a new client to associate for a car.
+	 *
+ 	 * @return Response
+	 */
+	private function create_client()
+	{
+		//
+		$validation = Validator::make(Input::all(), [
+			'first_name' => 'required',
+			'last_name'  => 'required',
+			'email'      => 'required|email|unique:clients,email',
+		]);
+
+		if ( $validation->fails() ) {
+			return Redirect::back()->withInput()->withErrors($validation);
+		}
+
+		$client = new Client();
+
+		// assign values
+		$client->company_name = Input::get('company_name');
+		$client->first_name = Input::get('first_name');
+		$client->last_name = Input::get('last_name');
+		$client->display_name = ( ! empty(Input::get('display_name')) ) ? Input::get('display_name') : ($client->first_name . ' ' . $client->last_name);
+		$client->address = Input::get('address');
+		$client->city = Input::get('city');
+		$client->state = Input::get('state');
+		$client->zip = Input::get('zip');
+		$client->email = Input::get('email');
+		$client->phone = Input::get('phone');
+		$client->status = ClientStatus::ACTIVE;
+		$client->save();
+
+		return $client;
 	}
 
 
