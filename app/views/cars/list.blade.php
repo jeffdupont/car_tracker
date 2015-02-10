@@ -13,9 +13,13 @@
     @foreach($cars as $car)
     <tr>
       <td width="80%">
-        <img src="//placehold.it/100x100" class="pull-left">
+        <div class="pull-left car-image-thumbnail">
+          <img src="{{ URL::route('cars.image', $car->id) }}">
+        </div>
         <div>
-          {{ $car->display() }}<br>{{ $car->created_at->format('m-d-Y') }}<br><a href="{{ URL::route('cars.qrcode', $car->id) }}" target="_blank"><i class="fa fa-qrcode"></i> QR Code</a>
+          {{ $car->display() }}<br>
+          <small><b>CREATED</b> {{ $car->created_at->format('m-d-Y') }}</small><br>
+          <a href="{{ URL::route('cars.qrcode', $car->id) }}" target="_blank"><i class="fa fa-qrcode"></i> QR Code</a>
         </div>
       </td>
       <td>{{ ($car->last_maintenance) ? $car->last_maintenance->format('m-d-Y H:i:s') : 'N/A' }}</td>

@@ -9,8 +9,11 @@
 @section('content')
 <div class="row">
   <div class="small-12 columns">
-    <img src="//placehold.it/250x250" class="pull-left car-image-main">
+    <div class="pull-left car-image-main">
+      <img src="{{ URL::route('cars.image', $car->id) }}">
+    </div>
     <div>
+      <a href="{{ URL::route('cars.qrcode', $car->id) }}" target="_blank" class="pull-right"><i class="fa fa-qrcode"></i> QR Code</a>
       <h1>{{ $car->display() }}</h1>
       <dl>
         <dt>VIN:</dt>
@@ -30,7 +33,7 @@
 </div>
 
 <div class="row">
-  <div class="small-12 large-6 columns">
+  <div class="small-12 medium-6 large-6 columns">
     <h2>Client Details</h2>
     <dl>
       <dt>Name</dt>
@@ -64,8 +67,9 @@
     <a href="{{ URL::route('clients.edit', $car->client->id) }}" class="button tiny secondary">Edit</a>
   </div>
 
-  <div class="small-12 large-6 columns">
+  <div class="small-12 medium-6 large-6 columns">
     <h2>Maintenance Log</h2>
+    <a href="{{ URL::route('actions.create') }}" class="button tiny secondary">Log Action</a>
     @if(count($car->maintenance_logs) > 0)
     <ul>
       @foreach($car->maintenance_logs as $log)

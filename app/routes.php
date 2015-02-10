@@ -19,7 +19,8 @@ Route::group([ 'before' => 'auth' ], function()
 
 	Route::resource('users', 'UserController');
 	Route::resource('clients', 'ClientController');
-
+	Route::resource('actions', 'ActionController');
+	
 	Route::resource('cars', 'CarController');
 	Route::get('cars/{cars}/qrcode', [ 'as' => 'cars.qrcode', 'uses' => 'CarController@qrcode' ]);
 	Route::get('cars/{cars}/image', [ 'as' => 'cars.image', 'uses' => 'CarController@image' ]);

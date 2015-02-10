@@ -6117,10 +6117,14 @@ html, html a {
 address {
   font-style: normal; }
 
-.car-list img {
+.car-image-thumbnail {
+  width: 100px;
+  height: 100px;
   margin-right: 0.625rem; }
 
 .car-image-main {
+  width: 250px;
+  height: 250px;
   margin-right: 0.9375rem; }
 
 dl dt {
