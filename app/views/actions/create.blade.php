@@ -2,7 +2,7 @@
 
 @section('breadcrumb')
 <li class=""><a href="{{ URL::route('cars.index') }}">Cars</a></li>
-<li class=""><a href="{{ URL::route('cars.show', $car->id) }}">{{ $car->display() }}</a></li>
+<li class=""><a href="{{ URL::route('cars.show', $car->id) }}">{{ $car->display }}</a></li>
 <li class="current"><a href="#">Log Action</a></li>
 @stop
 

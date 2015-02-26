@@ -2,7 +2,9 @@
 
 class Car extends Eloquent {
 
-  function display() {
+  protected $appends = [ 'maintenance_logs' ];
+
+  function getDisplayAttribute() {
     return $this->make . ' ' . $this->model . ' ' . $this->year;
   }
 
@@ -47,7 +49,7 @@ class Car extends Eloquent {
   /*
     RELATIONSHIPS
   */
-  function maintenance_logs() {
+  function maintenanceLogs() {
     return $this->hasMany('MaintenanceLog');
   }
 
@@ -55,7 +57,7 @@ class Car extends Eloquent {
     return $this->belongsTo('Client');
   }
 
-  function scheduled_actions() {
+  function scheduledActions() {
     return $this->hasMany('ScheduledAction');
   }
 

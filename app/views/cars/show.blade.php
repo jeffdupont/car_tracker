@@ -3,7 +3,7 @@
 
 @section('breadcrumb')
 <li class=""><a href="{{ URL::to('cars') }}">Cars</a></li>
-<li class="current"><a href="#">{{ $car->display() }}</a></li>
+<li class="current"><a href="#">{{ $car->display }}</a></li>
 @stop
 
 @section('content')
@@ -14,7 +14,7 @@
     </div>
     <div>
       <a href="{{ URL::route('cars.qrcode', $car->id) }}" target="_blank" class="pull-right"><i class="fa fa-qrcode"></i> QR Code</a>
-      <h1>{{ $car->display() }}</h1>
+      <h1>{{ $car->display }}</h1>
       <dl>
         <dt>VIN:</dt>
         <dd>{{ $car->vin }}</dd>
@@ -73,7 +73,7 @@
     @if(count($car->maintenance_logs) > 0)
     <ul>
       @foreach($car->maintenance_logs as $log)
-      <li><b>{{ $log->action }}</b> <span>{{ $log->created_at->timezone('America/Phoenix')->format('l, F dS, Y h:i A') }}</span></li>
+      <li><b>{{ $log->action }}</b> <small>{{ $log->created_at->timezone('America/Phoenix')->format('l, F dS, Y h:i A') }} by <b>{{ $log->user->name }}</b></small></li>
       @endforeach
     </ul>
     @endif

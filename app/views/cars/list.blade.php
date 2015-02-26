@@ -17,7 +17,7 @@
           <img src="{{ URL::route('cars.image', $car->id) }}">
         </div>
         <div>
-          {{ $car->display() }}<br>
+          {{ $car->display }}<br>
           <small><b>CREATED</b> {{ $car->created_at->format('m-d-Y') }}</small><br>
           <a href="{{ URL::route('cars.qrcode', $car->id) }}" target="_blank"><i class="fa fa-qrcode"></i> QR Code</a>
         </div>
