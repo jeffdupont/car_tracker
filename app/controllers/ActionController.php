@@ -4,10 +4,12 @@ class ActionController extends \BaseController {
 
 	/**
 	 * Display a listing of the resource.
+   * TODO: at some point maybe handle passing no car_id and just
+	 *       display ALL actions against ALL cars
 	 *
 	 * @return Response
 	 */
-	public function index()
+	public function index( $car_id = false )
 	{
 		//
 	}
@@ -18,9 +20,12 @@ class ActionController extends \BaseController {
 	 *
 	 * @return Response
 	 */
-	public function create()
+	public function create( $car_id = false )
 	{
 		//
+		$car = Car::find($car_id);
+
+		return View::make('actions.create')->with([ 'car' => $car ]);
 	}
 
 

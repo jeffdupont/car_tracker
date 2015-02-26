@@ -69,7 +69,7 @@
 
   <div class="small-12 medium-6 large-6 columns">
     <h2>Maintenance Log</h2>
-    <a href="{{ URL::route('actions.create') }}" class="button tiny secondary">Log Action</a>
+    <a href="{{ URL::route('cars.actions.create', $car->id) }}" class="button tiny secondary">Log Action</a>
     @if(count($car->maintenance_logs) > 0)
     <ul>
       @foreach($car->maintenance_logs as $log)
