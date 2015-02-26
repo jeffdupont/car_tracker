@@ -71,9 +71,9 @@
     <h2>Maintenance Log</h2>
     <a href="{{ URL::route('cars.actions.create', $car->id) }}" class="button tiny secondary">Log Action</a>
     @if(count($car->maintenance_logs) > 0)
-    <ul>
+    <ul class="maintenance-logs">
       @foreach($car->maintenance_logs as $log)
-      <li><b>{{ $log->action }}</b> <small>{{ $log->created_at->timezone('America/Phoenix')->format('l, F dS, Y h:i A') }} by <b>{{ $log->user->name }}</b></small></li>
+      <li class="log-item"><b>{{ $log->action }}</b><br/> <small>{{ $log->created_at->timezone('America/Phoenix')->format('l, F dS, Y h:i A') }} by <b>{{ $log->user->name }}</b></small></li>
       @endforeach
     </ul>
     @endif

@@ -50,7 +50,7 @@ class Car extends Eloquent {
     RELATIONSHIPS
   */
   function maintenanceLogs() {
-    return $this->hasMany('MaintenanceLog');
+    return $this->hasMany('MaintenanceLog')->orderBy('updated_at', 'desc');
   }
 
   function client() {
