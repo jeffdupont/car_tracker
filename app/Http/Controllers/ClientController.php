@@ -1,6 +1,8 @@
 <?php namespace App\Http\Controllers;
 
-use App\Models;
+use App\Models\Client;
+use App\Models\ClientStatus;
+use Request;
 
 class ClientController extends Controller {
 
@@ -35,33 +37,33 @@ class ClientController extends Controller {
 	public function store()
 	{
 		//
-		$validation = Validator::make(Input::all(), [
+		$validation = \Validator::make(Request::all(), [
 			'first_name' => 'required',
 			'last_name'  => 'required',
 			'email'      => 'required|email|unique:clients,email',
 		]);
 
 		if ( $validation->fails() ) {
-			return Redirect::back()->withInput()->withErrors($validation);
+			return redirect()->back()->withInput()->withErrors($validation);
 		}
 
 		$client = new Client();
 
 		// assign values
-		$client->company_name = Input::get('company_name');
-		$client->first_name = Input::get('first_name');
-		$client->last_name = Input::get('last_name');
-		$client->display_name = ( ! empty(Input::get('display_name')) ) ? Input::get('display_name') : ($client->first_name . ' ' . $client->last_name);
-		$client->address = Input::get('address');
-		$client->city = Input::get('city');
-		$client->state = Input::get('state');
-		$client->zip = Input::get('zip');
-		$client->email = Input::get('email');
-		$client->phone = Input::get('phone');
+		$client->company_name = Request::get('company_name');
+		$client->first_name = Request::get('first_name');
+		$client->last_name = Request::get('last_name');
+		$client->display_name = ( ! empty(Request::get('display_name')) ) ? Request::get('display_name') : ($client->first_name . ' ' . $client->last_name);
+		$client->address = Request::get('address');
+		$client->city = Request::get('city');
+		$client->state = Request::get('state');
+		$client->zip = Request::get('zip');
+		$client->email = Request::get('email');
+		$client->phone = Request::get('phone');
 		$client->status = ClientStatus::ACTIVE;
 		$client->save();
 
-		return Redirect::route('clients.show', $client->id)->with('success', 'Client created successfully.');
+		return redirect()->route('clients.show', [ $client->id ])->with('success', 'Client created successfully.');
 	}
 
 
@@ -104,33 +106,33 @@ class ClientController extends Controller {
 	public function update($id)
 	{
 		//
-		$validation = Validator::make(Input::all(), [
+		$validation = \Validator::make(Request::all(), [
 			'first_name' => 'required',
 			'last_name'  => 'required',
 			'email'      => 'required|email|unique:clients,email,' . $id,
 		]);
 
 		if ( $validation->fails() ) {
-			return Redirect::back()->withInput()->withErrors($validation);
+			return redirect()->back()->withInput()->withErrors($validation);
 		}
 
 		$client = Client::find($id);
 
 		// assign values
-		$client->company_name = Input::get('company_name');
-		$client->first_name = Input::get('first_name');
-		$client->last_name = Input::get('last_name');
-		$client->display_name = ( ! empty(Input::get('display_name')) ) ? Input::get('display_name') : ($client->first_name . ' ' . $client->last_name);
-		$client->address = Input::get('address');
-		$client->city = Input::get('city');
-		$client->state = Input::get('state');
-		$client->zip = Input::get('zip');
-		$client->email = Input::get('email');
-		$client->phone = Input::get('phone');
+		$client->company_name = Request::get('company_name');
+		$client->first_name = Request::get('first_name');
+		$client->last_name = Request::get('last_name');
+		$client->display_name = ( ! empty(Request::get('display_name')) ) ? Request::get('display_name') : ($client->first_name . ' ' . $client->last_name);
+		$client->address = Request::get('address');
+		$client->city = Request::get('city');
+		$client->state = Request::get('state');
+		$client->zip = Request::get('zip');
+		$client->email = Request::get('email');
+		$client->phone = Request::get('phone');
 		// $client->status = ClientStatus::ACTIVE;
 		$client->save();
 
-		return Redirect::route('clients.show', $client->id)->with('success', 'Client has been updated successfully.');
+		return redirect()->route('clients.show', [ $client->id ])->with('success', 'Client has been updated successfully.');
 	}
 
 

@@ -1,6 +1,6 @@
 <?php namespace App\Http\Controllers;
 
-use App\Models;
+use App\Models\MaintenanceLog;
 
 class HomeController extends Controller {
 
@@ -9,7 +9,7 @@ class HomeController extends Controller {
     //
     $notifications = MaintenanceLog::orderBy('created_at', 'desc');
 
-    return view('home.dashboard')->with([ 'notifications' => $notifications->paginate(25) ]);
+    return view('home.dashboard')->with([ 'maintenance_logs' => $notifications->paginate(25) ]);
   }
 
 }

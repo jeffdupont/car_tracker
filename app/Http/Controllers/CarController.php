@@ -3,6 +3,11 @@
 use App\Models\Car;
 use App\Models\CarStatus;
 use App\Models\Client;
+use App\Models\ClientStatus;
+
+use Request;
+
+use Illuminate\Contracts\Filesystem\Cloud;
 
 class CarController extends Controller {
 
@@ -46,7 +51,7 @@ class CarController extends Controller {
 	public function store()
 	{
 		//
-		$validation = Validator::make(Input::all(), [
+		$validation = \Validator::make(Request::all(), [
 			'client_id' => 'required|integer',
 			'make'      => 'required',
 			'model'     => 'required',
@@ -55,32 +60,32 @@ class CarController extends Controller {
 		]);
 
 		if ( $validation->fails() ) {
-			return Redirect::back()->withInput()->withErrors($validation);
+			return redirect()->back()->withInput()->withErrors($validation);
 		}
 
-		$client_id = Input::get('client_id');
+		$client_id = Request::get('client_id');
 		if ( $client_id == 0 ) {
 			$client = $this->create_client();
 			$client_id = $client->id;
 		}
 
 		if ( ! $client_id ) {
-			return Redirect::back()->withInput()->withErrors([ 'client_id' => 'Error assigning client. Please try again.' ]);
+			return redirect()->back()->withInput()->withErrors([ 'client_id' => 'Error assigning client. Please try again.' ]);
 		}
 
 		$car = new Car();
 
 		// assign values
 		$car->client_id = $client_id;
-		$car->make = Input::get('make');
-		$car->model = Input::get('model');
-		$car->year = Input::get('year');
-		$car->vin = Input::get('vin');
-		$car->mileage = Input::get('mileage');
+		$car->make = Request::get('make');
+		$car->model = Request::get('model');
+		$car->year = Request::get('year');
+		$car->vin = Request::get('vin');
+		$car->mileage = Request::get('mileage');
 		$car->status = CarStatus::ACTIVE;
 		$car->save();
 
-		return Redirect::route('cars.show', $car->id)->with('success', 'Car stored successfully.');
+		return redirect()->route('cars.show', [ $car->id ])->with('success', 'Car stored successfully.');
 	}
 
 
@@ -92,29 +97,29 @@ class CarController extends Controller {
 	private function create_client()
 	{
 		//
-		$validation = Validator::make(Input::all(), [
+		$validation = \Validator::make(Request::all(), [
 			'first_name' => 'required',
 			'last_name'  => 'required',
 			'email'      => 'required|email|unique:clients,email',
 		]);
 
 		if ( $validation->fails() ) {
-			return Redirect::back()->withInput()->withErrors($validation);
+			return redirect()->back()->withInput()->withErrors($validation);
 		}
 
 		$client = new Client();
 
 		// assign values
-		$client->company_name = Input::get('company_name');
-		$client->first_name = Input::get('first_name');
-		$client->last_name = Input::get('last_name');
-		$client->display_name = ( ! empty(Input::get('display_name')) ) ? Input::get('display_name') : ($client->first_name . ' ' . $client->last_name);
-		$client->address = Input::get('address');
-		$client->city = Input::get('city');
-		$client->state = Input::get('state');
-		$client->zip = Input::get('zip');
-		$client->email = Input::get('email');
-		$client->phone = Input::get('phone');
+		$client->company_name = Request::get('company_name');
+		$client->first_name = Request::get('first_name');
+		$client->last_name = Request::get('last_name');
+		$client->display_name = ( ! empty(Request::get('display_name')) ) ? Request::get('display_name') : ($client->first_name . ' ' . $client->last_name);
+		$client->address = Request::get('address');
+		$client->city = Request::get('city');
+		$client->state = Request::get('state');
+		$client->zip = Request::get('zip');
+		$client->email = Request::get('email');
+		$client->phone = Request::get('phone');
 		$client->status = ClientStatus::ACTIVE;
 		$client->save();
 
@@ -128,12 +133,12 @@ class CarController extends Controller {
 	 * @param  int  $id
 	 * @return Response
 	 */
-	public function show($id)
+	public function show(Cloud $storage, $id)
 	{
 		//
 		$car = Car::find($id);
 
-		return view('cars.show')->with([ 'car' => $car ]);
+		return view('cars.show')->with([ 'car' => $car, 'image_exists' => $storage->exists('images/' . $car->id . '.jpg') ]);
 	}
 
 
@@ -143,7 +148,7 @@ class CarController extends Controller {
 	 * @param  int  $id
 	 * @return Response
 	 */
-	public function edit($id)
+	public function edit(Cloud $storage, $id)
 	{
 		//
 		$car = Car::find($id);
@@ -155,7 +160,7 @@ class CarController extends Controller {
 									->lists('display_name', 'id');
 
 
-		return view('cars.edit')->with([ 'car' => $car, 'clients' => $clients ]);
+		return view('cars.edit')->with([ 'car' => $car, 'clients' => $clients, 'image_exists' => $storage->exists('images/' . $car->id . '.jpg') ]);
 	}
 
 
@@ -177,7 +182,7 @@ class CarController extends Controller {
 		]);
 
 		if ( $validation->fails() ) {
-			return Redirect::back()->withInput()->withErrors($validation);
+			return redirect()->back()->withInput()->withErrors($validation);
 		}
 
 		$car = Car::find($id);
@@ -192,7 +197,7 @@ class CarController extends Controller {
 		$car->status = Input::get('status');
 		$car->save();
 
-		return Redirect::route('cars.show', $car->id)->with('success', 'Car stored successfully.');
+		return redirect()->route('cars.show', [ $car->id ])->with('success', 'Car stored successfully.');
 	}
 
 
@@ -237,10 +242,13 @@ class CarController extends Controller {
 	 * @param  int  $id
 	 * @return Response
 	 */
-	public function image($id)
+	public function image(Cloud $storage, $id)
 	{
 		//
-		return Image::make(storage_path() . Config::get('upload.path') . '/' . $id . '.jpg')->response();
+		if ( $storage->exists('images/' . $id . '.jpg') )
+			return \Image::make($storage->get('images/' . $id . '.jpg'))->response();
+		else
+			return \Image::make(file_get_contents('http://placehold.it/250x250'))->response();
 	}
 
 

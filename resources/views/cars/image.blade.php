@@ -7,8 +7,10 @@
 
 
 <div id="car_image">
-@if( $car && file_exists( storage_path() . Config::get('upload.path') . '/' . $car->id . '.jpg') )
+@if( $car && $image_exists )
   <img src="{{ URL::route('cars.image', $car->id) }}"/>
+@else
+  <img src="//placehold.it/250x250"/>
 @endif
 </div>
 <input type="file" name="image" id="image" class="file-upload" accept="image/*;capture=camera" />

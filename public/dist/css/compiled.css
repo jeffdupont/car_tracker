@@ -8158,7 +8158,11 @@ address {
 .car-image-main {
   width: 250px;
   height: 250px;
-  margin-right: 0.9375rem; }
+  margin-right: 0.9375rem;
+  margin-bottom: 1.125rem; }
+
+.maintenance-logs .log-item small {
+  text-transform: uppercase; }
 
 dl dt {
   margin-bottom: 0;

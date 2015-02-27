@@ -17,17 +17,17 @@
 <div class="row">
   <div class="small-12 large-8 columns">
 
-    {{ Form::open([ 'route' => [ 'clients.update', $client->id ], 'method' => 'PUT' ]) }}
+    {!! Form::open([ 'route' => [ 'clients.update', $client->id ], 'method' => 'PUT' ]) !!}
 
     @include('clients.form')
 
     <div class="row">
       <div class="small-12 columns">
         <a href="{{ URL::previous() }}" class="button secondary">Back</a>
-        {{ Form::button('Save', [ 'type' => 'submit', 'class' => 'button alert pull-right' ]) }}
+        {!! Form::button('Save', [ 'type' => 'submit', 'class' => 'button alert pull-right' ]) !!}
       </div>
     </div>
-    {{ Form::close() }}
+    {!! Form::close() !!}
 
   </div>
 </div>

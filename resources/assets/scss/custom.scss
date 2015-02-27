@@ -34,6 +34,11 @@ address {
   width: 250px;
   height: 250px;
   margin-right: rem-calc(15);
+  margin-bottom: rem-calc(18);
+}
+
+.maintenance-logs .log-item small {
+  text-transform: uppercase;
 }
 
 dl dt {

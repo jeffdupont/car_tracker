@@ -148,7 +148,7 @@ return [
 		/*
 		 * Additional Providers...
 		 */
-		'Illuminate\Html\HtmlServiceProvider',
+		'Collective\Html\HtmlServiceProvider',
 		'Intervention\Image\ImageServiceProvider',
 	],
 
@@ -199,8 +199,8 @@ return [
 		'View'      => 'Illuminate\Support\Facades\View',
 
 		'Image' 	  => 'Intervention\Image\Facades\Image',
-		'Html'      => 'Illuminate\Html\HtmlFacade',
-		'Form'      => 'Illuminate\Html\FormFacade',
+		'Form' 			=> 'Collective\Html\FormFacade',
+		'Html' 			=> 'Collective\Html\HtmlFacade',
 	],
 
 ];

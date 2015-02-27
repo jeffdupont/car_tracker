@@ -3,8 +3,6 @@
 use Illuminate\Foundation\Bus\DispatchesCommands;
 use Illuminate\Routing\Controller as BaseController;
 use Illuminate\Foundation\Validation\ValidatesRequests;
-use Illuminate\Html\FormBuilder as Form;
-use Response;
 
 abstract class Controller extends BaseController {
 
@@ -13,7 +11,7 @@ abstract class Controller extends BaseController {
 }
 
 
-Form::macro('phone', function( $name, $value, $options )
+\Form::macro('phone', function( $name, $value, $options )
 {
 	array_walk($options, create_function('&$i,$k','$i=" $k=\"$i\"";'));
 	$input_properties = implode($options, " ");
@@ -22,7 +20,7 @@ Form::macro('phone', function( $name, $value, $options )
 });
 
 
-Response::macro('inlineImage', function($path, $name = null, $lifetime = 0)
+\Response::macro('inlineImage', function($path, $name = null, $lifetime = 0)
 {
 	if (is_null($name)) {
 			$name = basename($path);

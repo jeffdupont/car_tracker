@@ -5,15 +5,16 @@ use App\Models;
 class UtilitiesController extends Controller {
 
 
-    function upload( $car_id ) {
+    function upload( Cloud $storage, $car_id ) {
       //
-      $image = \Image::make(Input::file('image'));
+      $storage->put('images/' . $car_id . '.jpg', Input::file('image'));
+      $image = \Image::make($storage->get('images/' . $car_id . '.jpg'));
 
       // save image
       $image->resize(null, 1000, function ($constraint) {
         $constraint->aspectRatio();
         $constraint->upsize();
-      })->save(storage_path() . Config::get('upload.path') . '/' . $car_id . '.jpg');
+      })->save();
 
       return \URL::route('cars.image', $car_id);
     }

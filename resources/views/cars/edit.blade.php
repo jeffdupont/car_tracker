@@ -15,7 +15,7 @@
 </div>
 
 <div class="row">
-  {{ Form::open([ 'route' => [ 'cars.update', $car->id ], 'method' => 'PUT' ]) }}
+  {!! Form::open([ 'route' => [ 'cars.update', $car->id ], 'method' => 'PUT' ]) !!}
 
   <div class="small-12 large-4 large-push-8  columns">
     @include('cars.image')
@@ -28,12 +28,12 @@
     <div class="row">
       <div class="small-12 columns">
         <a href="{{ URL::previous() }}" class="button secondary">Back</a>
-        {{ Form::button('Save', [ 'type' => 'submit', 'class' => 'button alert pull-right' ]) }}
+        {!! Form::button('Save', [ 'type' => 'submit', 'class' => 'button alert pull-right' ]) !!}
       </div>
     </div>
 
   </div>
 
-  {{ Form::close() }}
+  {!! Form::close() !!}
 </div>
 @stop

@@ -10,7 +10,7 @@
 <div class="row">
   <div class="small-12 columns">
     <div class="pull-left car-image-main">
-      <img src="{{ URL::route('cars.image', $car->id) }}">
+      @include('cars.image')
     </div>
     <div>
       <a href="{{ URL::route('cars.qrcode', $car->id) }}" target="_blank" class="pull-right"><i class="fa fa-qrcode"></i> QR Code</a>
@@ -70,13 +70,8 @@
   <div class="small-12 medium-6 large-6 columns">
     <h2>Maintenance Log</h2>
     <a href="{{ URL::route('cars.actions.create', $car->id) }}" class="button tiny secondary">Log Action</a>
-    @if(count($car->maintenance_logs) > 0)
-    <ul class="maintenance-logs">
-      @foreach($car->maintenance_logs as $log)
-      <li class="log-item"><b>{{ $log->action }}</b><br/> <small>{{ $log->created_at->timezone('America/Phoenix')->format('l, F dS, Y h:i A') }} by <b>{{ $log->user->name }}</b></small></li>
-      @endforeach
-    </ul>
-    @endif
+
+    @include('maintenance.log', [ 'maintenance_logs' => $car->maintenance_logs ])
   </div>
 </div>
 @stop
