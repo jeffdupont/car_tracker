@@ -5,7 +5,7 @@ module.exports = function(grunt) {
     sass: {
       dist: {
         files: {
-          'public/css/app.css': 'public/scss/app.scss'
+          'public/css/app.css': 'resources/assets/scss/app.scss'
         }
       }
     },
@@ -13,21 +13,21 @@ module.exports = function(grunt) {
     copy: {
       modern: {
         expand: true,
-        cwd: 'public/vendor/components/foundation/js/',
+        cwd: 'resources/assets/vendor/components/foundation/js/',
         src: '**',
         dest: 'public/dist/js/',
         filter: 'isFile',
       },
       fonts: {
         expand: true,
-        cwd: 'public/vendor/components/font-awsome/fonts/',
+        cwd: 'resources/assets/vendor/components/font-awsome/fonts/',
         src: '**',
         dest: 'public/dist/fonts/',
         filter: 'isFile',
       },
       liteuploader: {
         expand: true,
-        cwd: 'public/vendor/components/lite-uploader/',
+        cwd: 'resources/assets/vendor/components/lite-uploader/',
         src: '*.js',
         dest: 'public/dist/lite-uploader/',
         filter: 'isFile',
@@ -37,15 +37,15 @@ module.exports = function(grunt) {
     concat: {
       css: {
         src: [
-        'public/vendor/components/foundation/css/normalize.css',
-        'public/vendor/components/font-awsome/css/font-awesome.css',
+        'resources/assets/vendor/components/foundation/css/normalize.css',
+        'resources/assets/vendor/components/font-awsome/css/font-awesome.css',
         'public/css/app.css',
         ],
         dest: 'public/dist/css/compiled.css'
       },
       js: {
         src: [
-        'public/vendor/components/moment/moment.js',
+        'resources/assets/vendor/components/moment/moment.js',
         'public/js/**/*.js',
         'public/js/*.js',
         ],
@@ -72,7 +72,7 @@ module.exports = function(grunt) {
     },
 
     watch: {
-      files: [ 'public/css/*', 'public/js/*', 'public/scss/*' ],
+      files: [ 'public/css/*', 'public/js/*', 'resources/assets/scss/*' ],
       tasks: [ 'sass', 'concat:css', 'cssmin:css', 'concat:js', 'uglify:js']
     }
   });

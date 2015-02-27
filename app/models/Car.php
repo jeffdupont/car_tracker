@@ -1,6 +1,6 @@
-<?php
+<?php namespace App\Models;
 
-class Car extends Eloquent {
+class Car extends \Eloquent {
 
   protected $appends = [ 'maintenance_logs' ];
 
@@ -21,7 +21,7 @@ class Car extends Eloquent {
 
   function generate_qr_content() {
     //
-    $content  = URL::route('cars.show', $this->id) . "\n";
+    $content  = \URL::route('cars.show', $this->id) . "\n";
     $content .= $this->client->display_name . "\n";
     $content .= $this->client->company_name . "\n";
     $content .= $this->client->phone_format();
@@ -49,16 +49,16 @@ class Car extends Eloquent {
   /*
     RELATIONSHIPS
   */
-  function maintenanceLogs() {
-    return $this->hasMany('MaintenanceLog')->orderBy('updated_at', 'desc');
+  function maintenance_logs() {
+    return $this->hasMany('App\Models\MaintenanceLog')->orderBy('updated_at', 'desc');
   }
 
   function client() {
-    return $this->belongsTo('Client');
+    return $this->belongsTo('App\Models\Client');
   }
 
-  function scheduledActions() {
-    return $this->hasMany('ScheduledAction');
+  function scheduled_actions() {
+    return $this->hasMany('App\Models\ScheduledAction');
   }
 
 }

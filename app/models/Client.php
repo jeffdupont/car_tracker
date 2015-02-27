@@ -1,6 +1,6 @@
-<?php
+<?php namespace App\Models;
 
-class Client extends Eloquent {
+class Client extends \Eloquent {
 
   function getNameAttribute() {
 
@@ -43,7 +43,7 @@ class Client extends Eloquent {
   RELATIONSHIPS
   */
   function cars() {
-    return $this->hasMany('Car');
+    return $this->hasMany('App\Models\Car');
   }
-  
+
 }

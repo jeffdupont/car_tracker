@@ -1,4 +1,4 @@
-<?php
+<?php namespace App\Models;
 
 class UserStatus {
   const __default = self::DEACTIVATED;

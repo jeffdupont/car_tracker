@@ -1,4 +1,4 @@
-<?php
+<?php namespace App\Models;
 
 class CarStatus {
   const __default = self::DEACTIVATED;

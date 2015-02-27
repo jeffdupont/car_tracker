@@ -1,5 +1,5 @@
-<?php
+<?php namespace App\Models;
 
-class ScheduledAction extends Eloquent {
+class ScheduledAction extends \Eloquent {
 
 }
