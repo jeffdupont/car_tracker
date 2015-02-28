@@ -15,8 +15,8 @@
 </div>
 
 <div class="row">
-  {{ Form::open([ 'route' => 'cars.actions.store' ]) }}
-  {{ Form::hidden('car_id', $car->id) }}
+  {!! Form::open([ 'route' => 'cars.actions.store' ]) !!}
+  {!! Form::hidden('car_id', $car->id) !!}
 
   <div class="small-12 large-8 columns">
 
@@ -25,13 +25,13 @@
     <div class="row">
       <div class="small-12 columns">
         <a href="{{ URL::previous() }}" class="button secondary">Back</a>
-        {{ Form::button('Save', [ 'type' => 'submit', 'class' => 'button alert pull-right' ]) }}
+        {!! Form::button('Save', [ 'type' => 'submit', 'class' => 'button alert pull-right' ]) !!}
       </div>
     </div>
 
   </div>
 
-  {{ Form::close() }}
+  {!! Form::close() !!}
 </div>
 
 @stop

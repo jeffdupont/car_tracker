@@ -159,8 +159,15 @@ class CarController extends Controller {
 									->orderBy('display_name', 'asc')
 									->lists('display_name', 'id');
 
+		$clients_list = [
+			'' => 'Select Client',
+			0 => 'New Client',
+		];
+		foreach( $clients as $k => $v ) {
+			$clients_list[$k] = $v;
+		}
 
-		return view('cars.edit')->with([ 'car' => $car, 'clients' => $clients, 'image_exists' => $storage->exists('images/' . $car->id . '.jpg') ]);
+		return view('cars.edit')->with([ 'car' => $car, 'clients' => $clients_list, 'image_exists' => $storage->exists('images/' . $car->id . '.jpg') ]);
 	}
 
 
@@ -173,7 +180,7 @@ class CarController extends Controller {
 	public function update($id)
 	{
 		//
-		$validation = Validator::make(Input::all(), [
+		$validation = \Validator::make(Request::all(), [
 			'client_id' => 'required|integer',
 			'make'      => 'required',
 			'model'     => 'required',
@@ -188,13 +195,13 @@ class CarController extends Controller {
 		$car = Car::find($id);
 
 		// assign values
-		$car->client_id = Input::get('client_id');
-		$car->make = Input::get('make');
-		$car->model = Input::get('model');
-		$car->year = Input::get('year');
-		$car->vin = Input::get('vin');
-		$car->mileage = Input::get('mileage');
-		$car->status = Input::get('status');
+		$car->client_id = Request::get('client_id');
+		$car->make = Request::get('make');
+		$car->model = Request::get('model');
+		$car->year = Request::get('year');
+		$car->vin = Request::get('vin');
+		$car->mileage = Request::get('mileage');
+		$car->status = Request::get('status');
 		$car->save();
 
 		return redirect()->route('cars.show', [ $car->id ])->with('success', 'Car stored successfully.');

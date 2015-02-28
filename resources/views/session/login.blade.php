@@ -12,7 +12,7 @@
       <div class="row">
         <div class="small-12 columns">
           <label {{ ($errors->first('email')) ? 'class="error"' : '' }}>
-            {!! Form::text('email', Input::old('email'), [ 'placeholder' => 'joe@example.com' ]) !!}
+            {!! Form::text('email', old('email'), [ 'placeholder' => 'joe@example.com' ]) !!}
           </label>
           @if($errors->first('email'))<small class="error">{{ $errors->first('email') }}</small>@endif
         </div>

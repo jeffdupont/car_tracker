@@ -1,5 +1,10 @@
 <?php namespace App\Http\Controllers;
 
+use App\Models\Car;
+use App\Models\MaintenanceLog;
+
+use Request;
+
 class ActionController extends Controller {
 
 	/**
@@ -37,44 +42,44 @@ class ActionController extends Controller {
 	public function store()
 	{
 		//
-		$validation = Validator::make(Input::all(), [
+		$validation = \Validator::make(Request::all(), [
 			'car_id' => 'required',
 			'action' => 'required'
 		]);
 
 		if ( $validation->fails() ) {
-			return Redirect::back()->withInput()->withErrors($validation);
+			return redirect()->back()->withInput()->withErrors($validation);
 		}
 
 		// get the car
-		$car = Car::find(Input::get('car_id'));
+		$car = Car::find(Request::get('car_id'));
 
 		// validate the ending mileage is > starting mileage
-		if ( Input::get('ending_mileage') && $car->mileage > Input::get('ending_mileage') ) {
-			return Redirect::back()->withInput()->withErrors([ 'validation' => 'The ending mileage is less than the starting mileage.' ]);
+		if ( Request::get('ending_mileage') && $car->mileage > Request::get('ending_mileage') ) {
+			return redirect()->back()->withInput()->withErrors([ 'validation' => 'The ending mileage is less than the starting mileage.' ]);
 		}
 
 		// maintenance log
 		$log = new MaintenanceLog();
-		$log->user_id = Auth::user()->id;
+		$log->user_id = \Auth::user()->id;
 		$log->car_id = $car->id;
 		$log->additional_data = json_encode([
-			'description' => Input::get('description'),
+			'description' => Request::get('description'),
 			'mileage' => [
 				'start' => $car->mileage,
-				'end'   => Input::get('ending_mileage') ? Input::get('ending_mileage') : $car->mileage
+				'end'   => Request::get('ending_mileage') ? Request::get('ending_mileage') : $car->mileage
 			]
 		]);
-		$log->action = $this->get_action(Input::get('action'));
+		$log->action = $this->get_action(Request::get('action'));
 		$log->save();
 
 		// update the mileage on the car
-		if ( Input::get('ending_mileage') ) {
-			$car->mileage = Input::get('ending_mileage');
+		if ( Request::get('ending_mileage') ) {
+			$car->mileage = Request::get('ending_mileage');
 			$car->save();
 		}
 
-		return Redirect::route('cars.show', $car->id)->with('success', 'Action logged successfully.');
+		return redirect()->route('cars.show', [ $car->id ])->with('success', 'Action logged successfully.');
 	}
 
 

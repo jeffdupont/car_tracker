@@ -17,7 +17,7 @@
           <label for="email" class="right inline">Email</label>
         </div>
         <div class="small-12 large-9 columns {{ ($errors->first('email')) ? 'error' : '' }}">
-          {{ Form::email('email', Input::old('email'), [ 'placeholder' => 'joe@example.com' ]) }}
+          {{ Form::email('email', old('email'), [ 'placeholder' => 'joe@example.com' ]) }}
           @if($errors->first('email'))<small class="error">{{ $errors->first('email') }}</small>@endif
         </div>
       </div>
