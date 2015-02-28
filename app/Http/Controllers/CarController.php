@@ -39,7 +39,15 @@ class CarController extends Controller {
 									->orderBy('display_name', 'asc')
 									->lists('display_name', 'id');
 
-		return view('cars.create')->with([ 'clients' => $clients ]);
+		$clients_list = [
+			'' => 'Select Client',
+			0 => 'New Client',
+		];
+		foreach( $clients as $k => $v ) {
+			$clients_list[$k] = $v;
+		}
+
+		return view('cars.create')->with([ 'clients' => $clients_list ]);
 	}
 
 
