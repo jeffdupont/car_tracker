@@ -1,7 +1,7 @@
 <?php namespace App\Http\Controllers;
 
 use Request;
-
+use Carbon\Carbon;
 
 class SessionController extends Controller {
 
@@ -19,7 +19,7 @@ class SessionController extends Controller {
 
     if (\Auth::attempt(Request::only('email', 'password'), false)) {
 
-      \Auth::user()->last_login = time();
+      \Auth::user()->last_login = Carbon::now();
       \Auth::user()->save();
 
       return redirect()->intended('dashboard');

@@ -14,6 +14,9 @@ class ClientController extends Controller {
 	public function index()
 	{
 		//
+		$clients = Client::where('status', '=', ClientStatus::ACTIVE)->orderBy('created_at', 'desc');
+
+		return view('clients.index')->with([ 'clients' => $clients->paginate(25), 'filter' => [] ]);
 	}
 
 

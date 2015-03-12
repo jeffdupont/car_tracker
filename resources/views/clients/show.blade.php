@@ -49,6 +49,7 @@
   </div>
 
   <div class="small-12 large-8 columns">
+    <a href="{{ URL::route('cars.create') }}?client_id={{ $client->id }}" class="button success pull-right tiny"><i class="fa fa-plus"></i> Add Car</a>
     <h2>Cars</h2>
     @include('cars.list', [ 'cars' => $client->cars ])
   </div>

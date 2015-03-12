@@ -44,7 +44,7 @@
   <div class="small-12 large-9 columns {{ ($errors->first('client_id')) ? 'error' : '' }}">
     <div class="row collapse">
       <div class="small-10 columns">
-        {!! Form::select('client_id', $clients, old('client_id') ? old('client_id') : (!empty($car) ? $car->client_id : '')) !!}
+        {!! Form::select('client_id', $clients, old('client_id') ? old('client_id') : (!empty($car) ? $car->client_id : (!empty(Request::get('client_id')) ? Request::get('client_id') : ''))) !!}
       </div>
       <div class="small-2 columns">
         <a href="#" id="create-client-button" data-show="create-client" class="button postfix flat"><i class="fa fa-plus"></i></a>
@@ -115,7 +115,7 @@
   <div class="small-12 large-3 columns">
     <label for="" class="right inline">Active</label>
   </div>
-  <div class="small-12 large-1 columns {{ ($errors->first('do_crawl')) ? 'error' : '' }} end">
+  <div class="small-12 large-1 columns {{ ($errors->first('status')) ? 'error' : '' }} end">
     <label for="status" class="right inline">
       <div class="switch">
         {!! Form::checkbox('status', 1, old('status') ? old('status') : $car->status, [ 'id' => 'status' ]) !!}

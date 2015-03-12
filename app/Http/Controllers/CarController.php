@@ -33,7 +33,7 @@ class CarController extends Controller {
 	public function create()
 	{
 		// get the list of accounts
-		$clients = Client::selectRaw('concat(company_name, " ", display_name) as display_name, id')
+		$clients = Client::selectRaw('concat(company_name, " / ", display_name) as display_name, id')
 									->where('status', '=', ClientStatus::ACTIVE)
 									->orderBy('company_name', 'asc')
 									->orderBy('display_name', 'asc')
