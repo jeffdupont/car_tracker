@@ -6,7 +6,7 @@
 @endif
 
 
-<div id="car_image">
+<div class="car-image main">
 @if( $car && $image_exists )
   <img src="{{ URL::route('cars.image', $car->id) }}"/>
 @else
@@ -21,10 +21,13 @@
   <script>
     $(document).ready(function () {
       $('.file-upload').liteUploader({
-        script: 'upload',
+        script: '/cars/{{ $car->id }}/upload',
         rules: {
           allowedFileTypes: 'image/jpeg,image/png,image/gif',
           // maxSize: 2500000
+        },
+        params: {
+          '_token': '{{ csrf_token() }}'
         }
       })
       .on('lu:errors', function (e, errors) {
@@ -44,22 +47,21 @@
         // }
       })
       .on('lu:before', function (e, files) {
-        console.log(files);
-        // $('#display').append('<br />Uploading ' + files.length + ' file(s)...');
+        $(".car-image").prepend('<div class="progress-container"><div class="progress"><span class="meter"></span></div></div>');
       })
       .on('lu:progress', function (e, percentage) {
         console.log(percentage);
-        // $('#display').append('<br />Progress ' + percentage + '%<br />');
+        $('.meter').css({ width: percentage + '%' });
       })
       .on('lu:success', function (e, response) {
-        var img = $("#car_image img");
+        var img = $(".car-image img");
         if ( ! img ) img = $("<img />");
         var new_image = response + '?' + Date.now();
         img.attr('src', new_image).load(function() {
             if (!this.complete || typeof this.naturalWidth == "undefined" || this.naturalWidth == 0) {
                 console.log('broken image!: ' + response);
             } else {
-                $("#car_image").empty().append(img);
+                $(".car-image").empty().append(img);
             }
         });
       });

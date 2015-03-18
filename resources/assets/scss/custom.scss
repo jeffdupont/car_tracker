@@ -25,16 +25,36 @@ address {
   font-style: normal;
 }
 
-.car-image-thumbnail {
+.car-image {
+  display: block;
+  overflow: hidden;
+  position: relative;
+}
+.car-image > img {
+  max-width: 100%;
+  height: auto;
+}
+.car-image.thumbnail {
   width: 100px;
   height: 100px;
   margin-right: rem-calc(10);
 }
-.car-image-main {
+.car-image.main {
   width: 250px;
   height: 250px;
   margin-right: rem-calc(15);
   margin-bottom: rem-calc(18);
+}
+
+.car-image .progress-container {
+  position: absolute;
+  background: $white;
+  width: 100%;
+}
+.car-image .progress {
+  border: 0 solid transparent;
+  padding: 0;
+  margin-bottom: 0;
 }
 
 .maintenance-logs .log-item small {

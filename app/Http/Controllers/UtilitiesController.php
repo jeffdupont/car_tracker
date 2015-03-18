@@ -2,19 +2,24 @@
 
 use App\Models;
 
+use Illuminate\Contracts\Filesystem\Cloud;
+
 class UtilitiesController extends Controller {
 
 
-    function upload( Cloud $storage, $car_id ) {
+    function upload( Cloud $storage, $car_id )
+    {
       //
-      $storage->put('images/' . $car_id . '.jpg', Input::file('image'));
-      $image = \Image::make($storage->get('images/' . $car_id . '.jpg'));
+      $image = \Image::make(\Request::file('image'));
 
-      // save image
+      // resize image
       $image->resize(null, 1000, function ($constraint) {
         $constraint->aspectRatio();
         $constraint->upsize();
       })->save();
+
+      // save image
+      $storage->put('images/' . $car_id . '.jpg', file_get_contents(\Request::file('image')));
 
       return \URL::route('cars.image', $car_id);
     }

@@ -8150,16 +8150,34 @@ html, html a {
 address {
   font-style: normal; }
 
-.car-image-thumbnail {
+.car-image {
+  display: block;
+  overflow: hidden;
+  position: relative; }
+
+.car-image > img {
+  max-width: 100%;
+  height: auto; }
+
+.car-image.thumbnail {
   width: 100px;
   height: 100px;
   margin-right: 0.625rem; }
 
-.car-image-main {
+.car-image.main {
   width: 250px;
   height: 250px;
   margin-right: 0.9375rem;
   margin-bottom: 1.125rem; }
+
+.car-image .progress-container {
+  position: absolute;
+  width: 100%; }
+
+.car-image .progress {
+  border: 0 solid transparent;
+  padding: 0;
+  margin-bottom: 0; }
 
 .maintenance-logs .log-item small {
   text-transform: uppercase; }

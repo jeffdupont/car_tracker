@@ -13,7 +13,7 @@
     @foreach($cars as $car)
     <tr>
       <td width="80%">
-        <div class="pull-left car-image-thumbnail">
+        <div class="pull-left car-image thumbnail">
           <img src="{{ URL::route('cars.image', $car->id) }}">
         </div>
         <div>
