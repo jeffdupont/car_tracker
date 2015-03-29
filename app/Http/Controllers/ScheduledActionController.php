@@ -2,12 +2,13 @@
 
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
+use App\Models\Car;
 
-use Illuminate\Http\Request;
+use Request;
 
 use Illuminate\Contracts\Filesystem\Cloud;
+use Recur\Recur;
 
-use App\Models\Car;
 
 class ScheduledActionController extends Controller {
 
@@ -45,6 +46,28 @@ class ScheduledActionController extends Controller {
 	public function store()
 	{
 		//
+		$type = Request::get('type');
+
+		switch( $type ) {
+			case "daily":
+				if ( Request::get('repeat') == 'week_day' ) {
+					$recur = Recur::create()->every([ 'mon', 'tue', 'wed', 'thur', 'fri' ], 'daysOfWeek');
+				}
+				if ( Request::get('repeat') == 'every_day' ) {
+					$recur = Recur::create()->every([ 1, 'days' ]);
+				}
+				break;
+
+			case "weekly":
+				// due_date = moment().recur().every(Object.keys(task.schedule.option)).daysOfWeek();
+				// $recur = Recur::create()->every([ array_keys(Reque)])
+				break;
+
+			case "monthly":
+				break;
+		}
+
+		return [ Request::all(), $recur ];
 	}
 
 	/**

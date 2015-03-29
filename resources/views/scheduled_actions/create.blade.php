@@ -19,6 +19,12 @@
 <div class="row">
   <div class="small-12 large-8 columns">
 
+    <div class="row">
+      <div class="small-12 columns">
+        <h2>{{ $car->display }}</h2>
+      </div>
+    </div>
+
     {!! Form::open([ 'route' => 'cars.scheduled_actions.store' ]) !!}
     {!! Form::hidden('car_id', $car->id) !!}
 
