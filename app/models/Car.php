@@ -1,5 +1,6 @@
 <?php namespace App\Models;
 
+
 class Car extends \Eloquent {
 
   protected $appends = [ 'maintenance_logs' ];

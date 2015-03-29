@@ -266,5 +266,4 @@ class CarController extends Controller {
 			return \Image::make(file_get_contents('http://placehold.it/250x250'))->response();
 	}
 
-
 }

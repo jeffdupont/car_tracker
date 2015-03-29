@@ -13,8 +13,9 @@
   <img src="//placehold.it/250x250"/>
 @endif
 </div>
+@if( ( ! empty($show_form) && $show_form !== false ) || ! isset($show_form) )
 <input type="file" name="image" id="image" class="file-upload" accept="image/*;capture=camera" />
-
+@endif
 
 @section('script')
 @parent
