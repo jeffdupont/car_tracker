@@ -15,14 +15,21 @@
     <label for="type" class="right inline">Type</label>
   </div>
   <div class="small-12 large-9 columns {{ ($errors->first('type')) ? 'error' : '' }}">
-    {!! Form::select('type', [ '' => 'Choose Type', 'daily' => 'Daily', 'weekly' => 'Weekly', 'monthly' => 'Monthly' ], old('type') ?: (!empty($scheduled_action) ? $scheduled_action->type : '')) !!}
+    {!! Form::select('type', [
+      '' => 'Choose Type',
+      'daily' => 'Daily',
+      'weekly' => 'Weekly',
+      'biweekly' => 'Bi-weekly',
+      'monthly' => 'Monthly',
+      'quarterly' => 'Quarterly',
+      'yearly' => 'Yearly' ], old('type') ?: (!empty($scheduled_action) ? $scheduled_action->type : '')) !!}
     @if($errors->first('type'))<small class="error">{{ $errors->first('type') }}</small>@endif
   </div>
 </div>
 
 <hr>
 
-<div id="daily-options" class="type-option">
+<div id="daily-options" class="type-option {{ (old('type') == 'daily') ? 'show' : ''}}">
   <div class="row">
     <div class="small-12 large-3 columns">
       <label for="" class="right inline">Repeat On</label>
@@ -52,7 +59,7 @@
   <hr>
 </div>
 
-<div id="weekly-options" class="type-option">
+<div id="weekly-options" class="type-option {{ (old('type') == 'weekly') ? 'show' : ''}}">
   <div class="row">
     <div class="small-12 large-3 columns">
       <label for="" class="right inline">Repeat On</label>
@@ -64,7 +71,7 @@
           <label for="repeat-monday">
             <div>Mon</div>
             <div class="switch">
-              {!! Form::checkbox('repeat', 'monday', old('repeat') ?: (!empty($scheduled_action) ? $scheduled_action->repeat : ''), [ 'id' => 'repeat-monday' ]) !!}
+              {!! Form::checkbox('repeat[]', 'monday', old('repeat[]') ?: (!empty($scheduled_action) ? $scheduled_action->repeat : ''), [ 'id' => 'repeat-monday' ]) !!}
               <label for="repeat-monday"></label>
             </div>
           </label>
@@ -75,7 +82,7 @@
           <label for="repeat-tuesday">
             <div>Tue</div>
             <div class="switch">
-              {!! Form::checkbox('repeat', 'tuesday', old('repeat') ?: (!empty($scheduled_action) ? $scheduled_action->repeat : ''), [ 'id' => 'repeat-tuesday' ]) !!}
+              {!! Form::checkbox('repeat[]', 'tuesday', old('repeat[]') ?: (!empty($scheduled_action) ? $scheduled_action->repeat : ''), [ 'id' => 'repeat-tuesday' ]) !!}
               <label for="repeat-tuesday"></label>
             </div>
           </label>
@@ -86,7 +93,7 @@
           <label for="repeat-wednesday">
             <div>Wed</div>
             <div class="switch">
-              {!! Form::checkbox('repeat', 'wednesday', old('repeat') ?: (!empty($scheduled_action) ? $scheduled_action->repeat : ''), [ 'id' => 'repeat-wednesday' ]) !!}
+              {!! Form::checkbox('repeat[]', 'wednesday', old('repeat[]') ?: (!empty($scheduled_action) ? $scheduled_action->repeat : ''), [ 'id' => 'repeat-wednesday' ]) !!}
               <label for="repeat-wednesday"></label>
             </div>
           </label>
@@ -97,7 +104,7 @@
           <label for="repeat-thursday">
             <div>Thu</div>
             <div class="switch">
-              {!! Form::checkbox('repeat', 'thursday', old('repeat') ?: (!empty($scheduled_action) ? $scheduled_action->repeat : ''), [ 'id' => 'repeat-thursday' ]) !!}
+              {!! Form::checkbox('repeat[]', 'thursday', old('repeat[]') ?: (!empty($scheduled_action) ? $scheduled_action->repeat : ''), [ 'id' => 'repeat-thursday' ]) !!}
               <label for="repeat-thursday"></label>
             </div>
           </label>
@@ -108,7 +115,7 @@
           <label for="repeat-friday">
             <div>Fri</div>
             <div class="switch">
-              {!! Form::checkbox('repeat', 'friday', old('repeat') ?: (!empty($scheduled_action) ? $scheduled_action->repeat : ''), [ 'id' => 'repeat-friday' ]) !!}
+              {!! Form::checkbox('repeat[]', 'friday', old('repeat[]') ?: (!empty($scheduled_action) ? $scheduled_action->repeat : ''), [ 'id' => 'repeat-friday' ]) !!}
               <label for="repeat-friday"></label>
             </div>
           </label>
@@ -119,7 +126,7 @@
           <label for="repeat-saturday">
             <div>Sat</div>
             <div class="switch">
-              {!! Form::checkbox('repeat', 'saturday', old('repeat') ?: (!empty($scheduled_action) ? $scheduled_action->repeat : ''), [ 'id' => 'repeat-saturday' ]) !!}
+              {!! Form::checkbox('repeat[]', 'saturday', old('repeat[]') ?: (!empty($scheduled_action) ? $scheduled_action->repeat : ''), [ 'id' => 'repeat-saturday' ]) !!}
               <label for="repeat-saturday"></label>
             </div>
           </label>
@@ -130,7 +137,7 @@
           <label for="repeat-sunday">
             <div>Sun</div>
             <div class="switch">
-              {!! Form::checkbox('repeat', 'sunday', old('repeat') ?: (!empty($scheduled_action) ? $scheduled_action->repeat : ''), [ 'id' => 'repeat-sunday' ]) !!}
+              {!! Form::checkbox('repeat[]', 'sunday', old('repeat[]') ?: (!empty($scheduled_action) ? $scheduled_action->repeat : ''), [ 'id' => 'repeat-sunday' ]) !!}
               <label for="repeat-sunday"></label>
             </div>
           </label>
@@ -143,7 +150,7 @@
   <hr>
 </div>
 
-<div id="monthly-options" class="type-option">
+<div id="monthly-options" class="type-option {{ (old('type') == 'monthly') ? 'show' : ''}}">
   <div class="row">
     <div class="small-12 large-3 columns">
       <label for="day" class="right inline">Day</label>
@@ -157,12 +164,26 @@
   <hr>
 </div>
 
+<div id="biweekly-options" class="type-option {{ (old('type') == 'biweekly') ? 'show' : ''}}">
+  <div class="row">
+    <div class="small-12 large-3 columns">
+      <label for="start_date" class="right inline">Start From</label>
+    </div>
+    <div class="small-12 large-9 columns {{ ($errors->first('start_date')) ? 'error' : '' }}">
+      {!! Form::text('start_date', old('start_date') ?: (!empty($scheduled_action) ? $scheduled_action->start_date : ''), [ 'placeholder' => \Carbon\Carbon::now()->format('Y-m-d'), 'class' => 'datepicker' ]) !!}
+      @if($errors->first('start_date'))<small class="error">{{ $errors->first('start_date') }}</small>@endif
+    </div>
+  </div>
+
+  <hr>
+</div>
+
 @section('script')
 @parent
 <script>
 $(document).ready(function()
 {
-  $('.type-option').hide();
+  $('.type-option').not('.show').hide();
 
   $(':input[name=type]').on('change', function()
   {

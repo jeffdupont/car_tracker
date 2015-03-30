@@ -51,23 +51,27 @@ class ScheduledActionController extends Controller {
 		switch( $type ) {
 			case "daily":
 				if ( Request::get('repeat') == 'week_day' ) {
-					$recur = Recur::create()->every([ 'mon', 'tue', 'wed', 'thur', 'fri' ], 'daysOfWeek');
+					$recur = Recur::create()->every([ 'mon', 'tue', 'wed', 'thu', 'fri' ], 'daysOfWeek');
 				}
 				if ( Request::get('repeat') == 'every_day' ) {
-					$recur = Recur::create()->every([ 1, 'days' ]);
+					$recur = Recur::create()->every( 1, 'days');
 				}
 				break;
 
+			case "biweekly":
+				$start_date = Request::get('start_date');
+				$recur = Recur::create($start_date)->every( 2, 'weeks' );
+				break;
+
 			case "weekly":
-				// due_date = moment().recur().every(Object.keys(task.schedule.option)).daysOfWeek();
-				// $recur = Recur::create()->every([ array_keys(Reque)])
+				$recur = Recur::create()->every( Request::get('repeat'), 'daysOfWeek' );
 				break;
 
 			case "monthly":
 				break;
 		}
 
-		return [ Request::all(), $recur ];
+		return [ Request::all(), $recur->save() ];
 	}
 
 	/**

@@ -31,6 +31,13 @@ module.exports = function(grunt) {
         src: '*.js',
         dest: 'public/dist/lite-uploader/',
         filter: 'isFile',
+      },
+      datetimepicker: {
+        expand: true,
+        cwd: 'resources/assets/vendor/components/datetimepicker/',
+        src: '**',
+        dest: 'public/dist/datetimepicker/',
+        filter: 'isFile',
       }
     },
 
@@ -39,6 +46,7 @@ module.exports = function(grunt) {
         src: [
         'resources/assets/vendor/components/foundation/css/normalize.css',
         'resources/assets/vendor/components/font-awsome/css/font-awesome.css',
+        'public/dist/datetimepicker/jquery.datetimepicker.css',
         'public/css/app.css',
         ],
         dest: 'public/dist/css/compiled.css'
@@ -90,6 +98,7 @@ module.exports = function(grunt) {
     'copy:modern',
     'copy:fonts',
     'copy:liteuploader',
+    'copy:datetimepicker',
     'concat:css',
     'cssmin:css',
     'concat:js',
