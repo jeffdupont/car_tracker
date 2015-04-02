@@ -1,5 +1,6 @@
 
 
+<h5>Select Schedule Type</h5>
 <div class="row">
   <div class="small-12 large-3 columns">
     <label for="action" class="right inline">Action</label>
@@ -27,9 +28,9 @@
   </div>
 </div>
 
-<hr>
 
 <div id="daily-options" class="type-option {{ (old('type') == 'daily') ? 'show' : ''}}">
+  <h5>Daily Options</h5>
   <div class="row">
     <div class="small-12 large-3 columns">
       <label for="" class="right inline">Repeat On</label>
@@ -55,11 +56,10 @@
       @if($errors->first('repeat'))<small class="error">{{ $errors->first('repeat') }}</small>@endif
     </div>
   </div>
-
-  <hr>
 </div>
 
 <div id="weekly-options" class="type-option {{ (old('type') == 'weekly') ? 'show' : ''}}">
+  <h5>Weekly Options</h5>
   <div class="row">
     <div class="small-12 large-3 columns">
       <label for="" class="right inline">Repeat On</label>
@@ -146,25 +146,23 @@
       </ul>
     </div>
   </div>
-
-  <hr>
 </div>
 
 <div id="monthly-options" class="type-option {{ (old('type') == 'monthly') ? 'show' : ''}}">
+  <h5>Monthly Options</h5>
   <div class="row">
     <div class="small-12 large-3 columns">
       <label for="day" class="right inline">Day</label>
     </div>
     <div class="small-12 large-9 columns {{ ($errors->first('day')) ? 'error' : '' }}">
-      {!! Form::select('day', range(1, 31), old('day') ?: (!empty($scheduled_action) ? $scheduled_action->day : '')) !!}
+      {!! Form::select('day', array_combine(range(1, 31), range(1, 31)), old('day') ?: (!empty($scheduled_action) ? $scheduled_action->day : '')) !!}
       @if($errors->first('day'))<small class="error">{{ $errors->first('day') }}</small>@endif
     </div>
   </div>
-
-  <hr>
 </div>
 
 <div id="biweekly-options" class="type-option {{ (old('type') == 'biweekly') ? 'show' : ''}}">
+  <h5>Bi-weekly Options</h5>
   <div class="row">
     <div class="small-12 large-3 columns">
       <label for="start_date" class="right inline">Start From</label>
@@ -174,22 +172,70 @@
       @if($errors->first('start_date'))<small class="error">{{ $errors->first('start_date') }}</small>@endif
     </div>
   </div>
-
-  <hr>
 </div>
+
+<div id="quarterly-options" class="type-option {{ (old('type') == 'quarterly') ? 'show' : ''}}">
+  <h5>Quarterly Options</h5>
+  <div class="row">
+    <div class="small-12 large-3 columns">
+      <label for="start_date" class="right inline">Start From</label>
+    </div>
+    <div class="small-12 large-9 columns {{ ($errors->first('start_date')) ? 'error' : '' }}">
+      {!! Form::text('start_date', old('start_date') ?: (!empty($scheduled_action) ? $scheduled_action->start_date : ''), [ 'placeholder' => \Carbon\Carbon::now()->format('Y-m-d'), 'class' => 'datepicker' ]) !!}
+      @if($errors->first('start_date'))<small class="error">{{ $errors->first('start_date') }}</small>@endif
+    </div>
+  </div>
+</div>
+
+<div id="yearly-options" class="type-option {{ (old('type') == 'yearly') ? 'show' : ''}}">
+  <h5>Yearly Options</h5>
+  <div class="row">
+    <div class="small-12 large-3 columns">
+      <label for="start_date" class="right inline">Start From</label>
+    </div>
+    <div class="small-12 large-9 columns {{ ($errors->first('start_date')) ? 'error' : '' }}">
+      {!! Form::text('start_date', old('start_date') ?: (!empty($scheduled_action) ? $scheduled_action->start_date : ''), [ 'placeholder' => \Carbon\Carbon::now()->format('Y-m-d'), 'class' => 'datepicker' ]) !!}
+      @if($errors->first('start_date'))<small class="error">{{ $errors->first('start_date') }}</small>@endif
+    </div>
+  </div>
+</div>
+
+<h5>Mileage</h5>
+<div class="row">
+  <div class="small-12 large-3 columns">
+    <label for="details" class="right inline">Details</label>
+  </div>
+  <div class="small-12 large-9 columns {{ ($errors->first('details')) ? 'error' : '' }}">
+    {!! Form::textarea('details', old('details') ?: (!empty($scheduled_action) ? $scheduled_action->details : ''), [ 'placeholder' => 'Additional information' ]) !!}
+    @if($errors->first('details'))<small class="error">{{ $errors->first('details') }}</small>@endif
+  </div>
+</div>
+
+<hr/>
+
+{!! Form::hidden('timezone') !!}
 
 @section('script')
 @parent
+<script src="/dist/jstimezone/jstz.min.js"></script>
 <script>
 $(document).ready(function()
 {
-  $('.type-option').not('.show').hide();
+  var timezone = jstz.determine();
+  $(':input[name=timezone]').val(timezone.name());
+
+  $('.type-option').hide();
+
+  if ( $(':input[name=type]').val() !== '' ) {
+    $('#' + $(':input[name=type]').val() + '-options').show();
+  }
 
   $(':input[name=type]').on('change', function()
   {
     $('.type-option').hide();
     $('#' + $(this).val() + '-options').show();
   });
+
 });
 </script>
 @stop

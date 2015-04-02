@@ -38,6 +38,13 @@ module.exports = function(grunt) {
         src: '**',
         dest: 'public/dist/datetimepicker/',
         filter: 'isFile',
+      },
+      jstimezone: {
+        expand: true,
+        cwd: 'resources/assets/vendor/components/jsTimezoneDetect/',
+        src: '*.js',
+        dest: 'public/dist/jstimezone/',
+        filter: 'isFile',
       }
     },
 
@@ -99,6 +106,7 @@ module.exports = function(grunt) {
     'copy:fonts',
     'copy:liteuploader',
     'copy:datetimepicker',
+    'copy:jstimezone',
     'concat:css',
     'cssmin:css',
     'concat:js',

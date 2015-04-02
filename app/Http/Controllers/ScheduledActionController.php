@@ -47,27 +47,42 @@ class ScheduledActionController extends Controller {
 	{
 		//
 		$type = Request::get('type');
+		$timezone = Request::get('timezone');
+
+		$recur = Recur::create();
+		$recur->tz = $timezone;
 
 		switch( $type ) {
 			case "daily":
 				if ( Request::get('repeat') == 'week_day' ) {
-					$recur = Recur::create()->every([ 'mon', 'tue', 'wed', 'thu', 'fri' ], 'daysOfWeek');
+					$recur->every([ 'mon', 'tue', 'wed', 'thu', 'fri' ], 'daysOfWeek');
 				}
 				if ( Request::get('repeat') == 'every_day' ) {
-					$recur = Recur::create()->every( 1, 'days');
+					$recur->every( 1, 'days');
 				}
+				break;
+
+			case "weekly":
+				$recur->every( Request::get('repeat'), 'daysOfWeek' );
 				break;
 
 			case "biweekly":
 				$start_date = Request::get('start_date');
-				$recur = Recur::create($start_date)->every( 2, 'weeks' );
-				break;
-
-			case "weekly":
-				$recur = Recur::create()->every( Request::get('repeat'), 'daysOfWeek' );
+				$recur->start($start_date)->every( 2, 'weeks' );
 				break;
 
 			case "monthly":
+			  $recur->every( Request::get('day'), 'daysOfMonth' );
+				break;
+
+			case "quarterly":
+				$start_date = Request::get('start_date');
+			  $recur->start($start_date)->every( 3, 'months' );
+				break;
+
+			case "yearly":
+				$start_date = Request::get('start_date');
+			  $recur->start($start_date)->every( 1, 'year' );
 				break;
 		}
 
