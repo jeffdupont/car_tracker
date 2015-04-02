@@ -13,7 +13,7 @@
     @foreach($scheduled_actions as $action)
     <tr>
       <td width="80%">{{ $action->action }}</td>
-      <td></td>
+      <td>{{ $action->type }}</td>
       <td>
         <a href="{{ URL::route('cars.scheduled_actions.edit', $action->id) }}" class="button tiny secondary">Edit</a>
       </td>
