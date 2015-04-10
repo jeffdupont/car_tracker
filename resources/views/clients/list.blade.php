@@ -15,7 +15,7 @@
         <div>
           <b>{{ $client->company_name }}</b><br>
           {{ $client->name }}<br>
-          <small><b>CREATED</b> {{ $client->created_at->format('m-d-Y') }}</small>
+          <small><b>CREATED</b> {{ $client->created_at->timezone('America/Phoenix')->format('m-d-Y') }}</small>
         </div>
       </td>
       <td>

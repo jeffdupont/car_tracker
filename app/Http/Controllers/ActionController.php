@@ -71,6 +71,8 @@ class ActionController extends Controller {
 			]
 		]);
 		$log->action = $this->get_action(Request::get('action'));
+		$log->is_completed = true;
+		$log->completed_at = $log->scheduled_at = \Carbon\Carbon::now();
 		$log->save();
 
 		// update the mileage on the car

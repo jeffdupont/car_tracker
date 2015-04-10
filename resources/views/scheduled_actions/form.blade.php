@@ -17,13 +17,14 @@
   </div>
   <div class="small-12 large-9 columns {{ ($errors->first('type')) ? 'error' : '' }}">
     {!! Form::select('type', [
-      '' => 'Choose Type',
-      'daily' => 'Daily',
-      'weekly' => 'Weekly',
-      'biweekly' => 'Bi-weekly',
-      'monthly' => 'Monthly',
+      ''          => 'Choose Type',
+      'daily'     => 'Daily',
+      'weekly'    => 'Weekly',
+      'biweekly'  => 'Bi-weekly',
+      'monthly'   => 'Monthly',
       'quarterly' => 'Quarterly',
-      'yearly' => 'Yearly' ], old('type') ?: (!empty($scheduled_action) ? $scheduled_action->type : '')) !!}
+      'yearly'    => 'Yearly'
+    ], old('type') ?: (!empty($scheduled_action) ? $scheduled_action->type : '')) !!}
     @if($errors->first('type'))<small class="error">{{ $errors->first('type') }}</small>@endif
   </div>
 </div>
@@ -77,7 +78,7 @@
       <label for="start_date" class="right inline">Start From</label>
     </div>
     <div class="small-12 large-9 columns {{ ($errors->first('start_date')) ? 'error' : '' }}">
-      {!! Form::text('start_date', old('start_date') ?: (!empty($scheduled_action) ? $scheduled_action->start_date : ''), [ 'placeholder' => \Carbon\Carbon::now()->format('Y-m-d'), 'class' => 'datepicker' ]) !!}
+      {!! Form::text('start_date', old('start_date') ?: (!empty($scheduled_action) ? $scheduled_action->start_date : ''), [ 'placeholder' => \Carbon\Carbon::now()->timezone('America/Phoenix')->format('Y-m-d'), 'class' => 'datepicker' ]) !!}
       @if($errors->first('start_date'))<small class="error">{{ $errors->first('start_date') }}</small>@endif
     </div>
   </div>
@@ -111,7 +112,7 @@
       <label for="start_date" class="right inline">Start From</label>
     </div>
     <div class="small-12 large-9 columns {{ ($errors->first('start_date')) ? 'error' : '' }}">
-      {!! Form::text('start_date', old('start_date') ?: (!empty($scheduled_action) ? $scheduled_action->start_date : ''), [ 'placeholder' => \Carbon\Carbon::now()->format('Y-m-d'), 'class' => 'datepicker' ]) !!}
+      {!! Form::text('start_date', old('start_date') ?: (!empty($scheduled_action) ? $scheduled_action->start_date : ''), [ 'placeholder' => \Carbon\Carbon::now()->timezone('America/Phoenix')->format('Y-m-d'), 'class' => 'datepicker' ]) !!}
       @if($errors->first('start_date'))<small class="error">{{ $errors->first('start_date') }}</small>@endif
     </div>
   </div>
@@ -133,7 +134,7 @@
       <label for="start_date" class="right inline">Repeat On</label>
     </div>
     <div class="small-12 large-9 columns {{ ($errors->first('start_date')) ? 'error' : '' }}">
-      {!! Form::text('start_date', old('start_date') ?: (!empty($scheduled_action) ? $scheduled_action->start_date : ''), [ 'placeholder' => \Carbon\Carbon::now()->format('Y-m-d'), 'class' => 'datepicker' ]) !!}
+      {!! Form::text('start_date', old('start_date') ?: (!empty($scheduled_action) ? $scheduled_action->start_date : ''), [ 'placeholder' => \Carbon\Carbon::now()->timezone('America/Phoenix')->format('Y-m-d'), 'class' => 'datepicker' ]) !!}
       @if($errors->first('start_date'))<small class="error">{{ $errors->first('start_date') }}</small>@endif
     </div>
   </div>

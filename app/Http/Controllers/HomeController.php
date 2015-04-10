@@ -7,7 +7,7 @@ class HomeController extends Controller {
   function dashboard()
   {
     //
-    $notifications = MaintenanceLog::orderBy('created_at', 'desc');
+    $notifications = MaintenanceLog::where('is_completed', false)->orderBy('scheduled_at', 'asc');
 
     return view('home.dashboard')->with([ 'maintenance_logs' => $notifications->paginate(25) ]);
   }

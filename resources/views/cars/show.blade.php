@@ -72,7 +72,8 @@
     <a href="{{ URL::route('cars.actions.create', $car->id) }}" class="button tiny secondary">Log Action</a>
     <a href="{{ URL::route('cars.scheduled_actions', $car->id) }}" class="button tiny secondary pull-right">Schedule Reminders</a>
 
-    @include('maintenance.log', [ 'maintenance_logs' => $car->maintenance_logs ])
+    @include('maintenance.log', [ 'maintenance_logs' => $car->scheduled_logs ])
+    @include('maintenance.log', [ 'maintenance_logs' => $car->completed_logs ])
   </div>
 </div>
 @stop

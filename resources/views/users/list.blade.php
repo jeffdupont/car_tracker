@@ -14,7 +14,7 @@
       <td width="80%">
         <div>
           <b>{{ $user->name }}</b><br>
-          <small><b>CREATED</b> {{ $user->created_at->format('m-d-Y') }}</small>
+          <small><b>CREATED</b> {{ $user->created_at->timezone('America/Phoenix')->format('m-d-Y') }}</small>
         </div>
       </td>
       <td>

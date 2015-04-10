@@ -150,6 +150,8 @@ return [
 		 */
 		'Collective\Html\HtmlServiceProvider',
 		'Intervention\Image\ImageServiceProvider',
+		'Bugsnag\BugsnagLaravel\BugsnagLaravelServiceProvider',
+
 	],
 
 	/*
@@ -201,6 +203,7 @@ return [
 		'Image' 	  => 'Intervention\Image\Facades\Image',
 		'Form' 			=> 'Collective\Html\FormFacade',
 		'Html' 			=> 'Collective\Html\HtmlFacade',
+		'Bugsnag'   => 'Bugsnag\BugsnagLaravel\BugsnagFacade',
 	],
 
 ];
