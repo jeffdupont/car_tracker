@@ -139,6 +139,34 @@ class ActionController extends Controller {
 	public function update($id)
 	{
 		//
+		$log = MaintenanceLog::find($id);
+		$car = $log->car;
+
+		// validate the ending mileage is > starting mileage
+		if ( Request::get('ending_mileage') && $car->mileage > Request::get('ending_mileage') ) {
+			return redirect()->back()->withInput()->withErrors([ 'validation' => 'The ending mileage is less than the starting mileage.' ]);
+		}
+
+		// mark it completed
+		$log->additional_data = json_encode([
+			'description' => Request::get('description'),
+			'mileage' => [
+				'start' => $car->mileage,
+				'end'   => Request::get('ending_mileage') ? Request::get('ending_mileage') : $car->mileage
+			]
+		]);
+		$log->is_completed = true;
+		$log->completed_at = \Carbon\Carbon::now();
+		$log->user_id = \Auth::user()->id;
+		$log->save();
+
+		// update the mileage on the car
+		if ( Request::get('ending_mileage') ) {
+			$car->mileage = Request::get('ending_mileage');
+			$car->save();
+		}
+
+		return redirect()->route('cars.show', [ $car->id ])->with('success', 'Action completed successfully.');
 	}
 
 
@@ -154,4 +182,17 @@ class ActionController extends Controller {
 	}
 
 
+	/**
+	 * Mark the action as completed.
+	 *
+	 * @param  int  $id
+	 * @return Response
+	 */
+	public function complete($id)
+	{
+		//
+		$log = MaintenanceLog::find($id);
+
+		return view('actions.complete')->with([ 'car' => $log->car, 'log' => $log ]);
+	}
 }

@@ -21,9 +21,14 @@
       <small><b>Scheduled For:</b> {{ $log->scheduled_at->format('l, F dS, Y') }}</small>
       @endif
     </td>
+    @if( ! $log->is_completed )
+    <td>
+      <a href="{{ URL::route('cars.actions.complete', $log->id) }}" class="button success tiny pull-right">Completed</a>
+    </td>
+    @endif
   </tr>
   @endforeach
 </table>
 @else
-<div class="info">No maintenance notifications found</div>
+<div class="info">No {{ isset($type) ? $type : '' }} maintenance notifications found</div>
 @endif

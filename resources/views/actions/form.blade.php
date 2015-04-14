@@ -5,8 +5,12 @@
     <label for="action" class="right inline">Action</label>
   </div>
   <div class="small-12 large-9 columns {{ ($errors->first('action')) ? 'error' : '' }}">
+    @if( ! isset($complete_form) )
     {!! Form::select('action', [ 'Start car', 'Maintenance', 'Test Drive' ], old('action')) !!}
     @if($errors->first('action'))<small class="error">{{ $errors->first('action') }}</small>@endif
+    @else
+    {{ $log->action }}
+    @endif
   </div>
 </div>
 
@@ -15,7 +19,7 @@
     <label for="description" class="right inline">Description</label>
   </div>
   <div class="small-12 large-9 columns {{ ($errors->first('description')) ? 'error' : '' }}">
-    {!! Form::textarea('description', old('description')) !!}
+    {!! Form::textarea('description', old('description') ?: $log->description) !!}
     @if($errors->first('description'))<small class="error">{{ $errors->first('description') }}</small>@endif
   </div>
 </div>

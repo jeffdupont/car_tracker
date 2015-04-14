@@ -22,7 +22,7 @@
           <a href="{{ URL::route('cars.qrcode', $car->id) }}" target="_blank"><i class="fa fa-qrcode"></i> QR Code</a>
         </div>
       </td>
-      <td>{!! ($car->last_maintenance) ? ($car->last_maintenance->timezone('America/Phoenix')->format('m-d-Y') . '<br><small>@ ' . $car->last_maintenance->timezone('America/Phoenix')->format('H:i:s A') . '</small>') : 'N/A' !!}</td>
+      <td>{!! ($car->last_maintenance) ? ($car->last_maintenance->timezone('America/Phoenix')->format('m-d-Y') . '<br><small>@ ' . $car->last_maintenance->timezone('America/Phoenix')->format('h:i:s A') . '</small>') : 'N/A' !!}</td>
       <td>
         <a href="{{ URL::route('cars.show', $car->id) }}" class="button tiny secondary">Details</a>
       </td>

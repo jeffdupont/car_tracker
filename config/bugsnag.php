@@ -1,6 +1,6 @@
 <?php
 
 return array(
-    'api_key' => 'f9cc8c23397322ed3d7254fd6eb0a7f6',
+    'api_key' => env('BUGSNAG_API_KEY'),
     // 'notify_release_stages' => ['production', 'staging']
 );

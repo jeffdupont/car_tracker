@@ -17,7 +17,7 @@ class Car extends \Eloquent {
       return false;
     }
 
-    return $maintenance_log->created_at;
+    return $maintenance_log->completed_at;
   }
 
   function generate_qr_content() {

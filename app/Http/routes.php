@@ -39,6 +39,7 @@ Route::group([ 'middleware' => 'auth' ], function()
 	Route::get('cars/actions/{actions}/edit', [ 'as' => 'cars.actions.edit', 'uses' => 'ActionController@edit' ]);
 	Route::put('cars/actions/{actions}', [ 'as' => 'cars.actions.update', 'uses' => 'ActionController@update' ]);
 	Route::patch('cars/actions/{actions}', [ 'uses' => 'ActionController@update' ]);
+	Route::get('cars/actions/{actions}/complete', [ 'as' => 'cars.actions.complete', 'uses' => 'ActionController@complete' ]);
 	//
 
 	// Scheduled Actions
