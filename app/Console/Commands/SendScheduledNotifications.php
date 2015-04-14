@@ -40,14 +40,33 @@ class SendScheduledNotifications extends Command {
 	 */
 	public function fire()
 	{
-		//
-		$actions = MaintenanceLog::where('scheduled_at', '<=', \Carbon\Carbon::now()->format('Y-m-d'))->where('is_completed', false)->get();
-		$notification_users = User::where('status', true)->where('is_notified', true)->lists('email');
-		print_r($notification_users);
+		// get all actions due today or are overdue
+		$actions = MaintenanceLog::where('scheduled_at', '<=', \Carbon\Carbon::now()->format('Y-m-d'))->where('is_completed', false)->orderBy('scheduled_at')->get();
 
-		foreach( $actions as $action ) {
-			print_r($action);
+		// get a list of users that are set to receive email notifications
+		$users = User::where('status', true)->where('is_notified', true)->lists('email', 'display_name');
+
+		if( ! empty($actions) ) {
+			$due = [];
+			$overdue = [];
+			foreach( $actions as $action ) {
+				if( $action->scheduled_at->format('Y-m-d') == \Carbon\Carbon::now()->format('Y-m-d') ) {
+					$due[] = $action;
+				}
+				elseif( $action->scheduled_at->lt(\Carbon\Carbon::now()) ) {
+					$overdue[] = $action;
+				}
+			}
+
+			\Mail::send('emails.notification', [ 'due' => $due, 'overdue' => $overdue ], function($message) use ($users)
+			{
+				foreach( $users as $user => $email ) {
+			    $message->to($email, $user);
+				}
+			});
 		}
+
+		$this->info('Done.');
 	}
 
 	// /**
