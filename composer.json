@@ -8,7 +8,9 @@
 		"laravel/framework": "5.0.*",
 		"laravelcollective/html": "~5.0",
 		"aferrandini/phpqrcode": "1.0.1",
-		"intervention/image": "dev-master"
+		"intervention/image": "dev-master",
+		"phxis/carbon-recur": "dev-master",
+		"bugsnag/bugsnag-laravel": "1.*"
 	},
 	"require-dev": {
 		"phpunit/phpunit": "~4.0",

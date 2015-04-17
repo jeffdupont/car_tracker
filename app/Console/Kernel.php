@@ -11,7 +11,8 @@ class Kernel extends ConsoleKernel {
 	 * @var array
 	 */
 	protected $commands = [
-		'App\Console\Commands\Inspire',
+		'App\Console\Commands\ScheduleRecurringAction',
+		'App\Console\Commands\SendScheduledNotifications',
 	];
 
 	/**
@@ -22,8 +23,8 @@ class Kernel extends ConsoleKernel {
 	 */
 	protected function schedule(Schedule $schedule)
 	{
-		$schedule->command('inspire')
-				 ->hourly();
+		$schedule->command('schedule:recurring-action')->daily();
+		$schedule->command('schedule:send-notifications')->dailyAt('15:00');
 	}
 
 }

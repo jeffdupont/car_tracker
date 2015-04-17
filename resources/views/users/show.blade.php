@@ -29,6 +29,9 @@
       <dt>Active</dt>
       <dd>{!! $user->status ? '<span class="label success">true</span>' : '<span class="label warning">false</span>' !!}</dd>
 
+      <dt>Send Email Notifications</dt>
+      <dd>{!! $user->is_notified ? '<span class="label success">true</span>' : '<span class="label warning">false</span>' !!}</dd>
+
       <dt>Last Updated</dt>
       <dd>{{ $user->updated_at->timezone('America/Phoenix')->format('l, F dS, Y h:i A') }}</dd>
     </dl>

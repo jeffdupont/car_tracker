@@ -64,6 +64,7 @@ class UserController extends Controller {
     $user->password = Hash::make(Request::get('password'));
     $user->is_admin = Request::get('is_admin', false);
     $user->status = Request::get('status', false);
+    $user->is_notified = Request::get('is_notified', false);
     $user->save();
 
     return redirect()->route('users.show', [ $user->id ])->with('success', 'User created successfully.');
@@ -137,6 +138,7 @@ class UserController extends Controller {
     $user->email = Request::get('email');
     $user->is_admin = Request::get('is_admin', false);
     $user->status = Request::get('status', false);
+    $user->is_notified = Request::get('is_notified', false);
 
     if ( Request::get('password') ) {
       $user->password = Hash::make(Request::get('password'));

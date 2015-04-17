@@ -5,14 +5,30 @@
   @foreach($maintenance_logs as $log)
   <tr class="log-item">
     <td>
-      @if( ! empty($with_car) )
-      <h6>{{ $log->car->display }} - <b>{{ $log->car->client->name }}</b></h6>
+      @if( $log->status() == "warning" )
+      <span class="label warning">DUE TODAY</span>
+      @elseif( $log->status() == "danger" )
+      <span class="label danger">OVERDUE!!!</span>
       @endif
-      <b>{{ $log->action }}</b><br/> <small>{{ $log->created_at->timezone('America/Phoenix')->format('l, F dS, Y h:i A') }} by <b>{{ $log->user->name }}</b></small>
+
+      @if( ! empty($with_car) )
+      <h6>{{ $log->car->display }} <a href="{{ URL::route('cars.show', $log->car->id) }}"><i class="fa fa-car"></i></a> - <b>{{ $log->car->client->name }}</b> <a href="{{ URL::route('clients.show', $log->car->client->id) }}"><i class="fa fa-user"></i></a></h6>
+      @endif
+      <b>{{ $log->action }}</b><br/>
+      @if( $log->is_completed )
+      <small><b>Completed On:</b> {{ $log->completed_at->timezone('America/Phoenix')->format('l, F dS, Y h:i A') }} by <b>{{ $log->user->name }}</b></small>
+      @else
+      <small><b>Scheduled For:</b> {{ $log->scheduled_at->format('l, F dS, Y') }}</small>
+      @endif
     </td>
+    @if( ! $log->is_completed )
+    <td>
+      <a href="{{ URL::route('cars.actions.complete', $log->id) }}" class="button success tiny pull-right">Completed</a>
+    </td>
+    @endif
   </tr>
   @endforeach
 </table>
 @else
-<div class="info">No maintenance notifications found</div>
+<div class="info">No {{ isset($type) ? $type : '' }} maintenance notifications found</div>
 @endif

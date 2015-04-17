@@ -1,5 +1,6 @@
 <?php namespace App\Models;
 
+
 class Car extends \Eloquent {
 
   protected $appends = [ 'maintenance_logs' ];
@@ -10,13 +11,13 @@ class Car extends \Eloquent {
 
   function getLastMaintenanceAttribute() {
 
-    $maintenance_log = $this->maintenance_logs()->orderBy('created_at', 'desc')->first();
+    $maintenance_log = $this->maintenance_logs()->orderBy('completed_at', 'desc')->first();
 
     if( empty($maintenance_log) ) {
       return false;
     }
 
-    return $maintenance_log->created_at;
+    return $maintenance_log->completed_at;
   }
 
   function generate_qr_content() {
@@ -44,13 +45,21 @@ class Car extends \Eloquent {
     return $status;
   }
 
+  function getScheduledLogsAttribute() {
+    return $this->maintenance_logs()->where('is_completed', false)->orderBy('scheduled_at', 'asc')->get();
+  }
+
+  function getCompletedLogsAttribute() {
+    return $this->maintenance_logs()->where('is_completed', true)->orderBy('completed_at', 'desc')->get();
+  }
+
 
 
   /*
     RELATIONSHIPS
   */
   function maintenance_logs() {
-    return $this->hasMany('App\Models\MaintenanceLog')->orderBy('updated_at', 'desc');
+    return $this->hasMany('App\Models\MaintenanceLog');
   }
 
   function client() {

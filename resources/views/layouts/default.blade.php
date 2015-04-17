@@ -108,6 +108,7 @@
 
 
   <script src="/dist/js/vendor/fastclick.js"></script>
+  <script src="/dist/datetimepicker/jquery.datetimepicker.js"></script>
 
   @if(App::environment() == "production")
   <script src="/dist/lite-uploader/jquery.liteuploader.min.js"></script>
@@ -123,6 +124,8 @@
     $(document).foundation();
     $(document).ready(function() {
       $(".alert-box").delay(4000).fadeOut(500);
+      $(".datepicker").datetimepicker({ format: 'Y-m-d', timepicker: false });
+      $(".datetimepicker").datetimepicker({ format: 'Y-m-d H:i' });
     });
   </script>
   @yield("script")

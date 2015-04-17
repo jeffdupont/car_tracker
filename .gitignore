@@ -3,6 +3,7 @@
 .env
 
 /resources/assets/vendor
+/storage/app/images
 composer.lock
 .DS_Store
 Thumbs.db

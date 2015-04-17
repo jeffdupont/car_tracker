@@ -63,6 +63,15 @@
     <label for="" class="right inline">Options</label>
   </div>
   <div class="small-12 large-2 columns {{ ($errors->first('is_admin')) ? 'error' : '' }}">
+    <label for="is_notified" class="right inline">Send Email Notifications
+      <div class="switch">
+        {!! Form::checkbox('is_notified', 1, old('is_notified') ?: (!empty($user) ? $user->is_notified : ''), [ 'id' => 'is_notified' ]) !!}
+        <label for="is_notified">Send Email Notifications</label>
+      </div>
+    </label>
+    @if($errors->first('is_admin'))<small class="error">{{ $errors->first('is_admin') }}</small>@endif
+  </div>
+  <div class="small-12 large-2 columns {{ ($errors->first('is_admin')) ? 'error' : '' }}">
     <label for="is_admin" class="right inline">Is Admin
       <div class="switch">
         {!! Form::checkbox('is_admin', 1, old('is_admin') ?: (!empty($user) ? $user->is_admin : ''), [ 'id' => 'is_admin' ]) !!}
@@ -72,10 +81,10 @@
     @if($errors->first('is_admin'))<small class="error">{{ $errors->first('is_admin') }}</small>@endif
   </div>
   <div class="small-12 large-2 columns {{ ($errors->first('status')) ? 'error' : '' }} end">
-    <label for="status" class="right inline">Status
+    <label for="status" class="right inline">Is Active
       <div class="switch">
         {!! Form::checkbox('status', 1, old('status') ?: (!empty($user) ? $user->status : ''), [ 'id' => 'status' ]) !!}
-        <label for="status">Status</label>
+        <label for="status">Is Active</label>
       </div>
     </label>
     @if($errors->first('status'))<small class="error">{{ $errors->first('status') }}</small>@endif
