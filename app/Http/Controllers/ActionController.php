@@ -30,7 +30,7 @@ class ActionController extends Controller {
 		//
 		$car = Car::find($car_id);
 
-		return view('actions.create')->with([ 'car' => $car ]);
+		return view('actions.create')->with([ 'car' => $car, 'log' => new MaintenanceLog() ]);
 	}
 
 
