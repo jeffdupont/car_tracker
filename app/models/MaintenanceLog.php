@@ -20,7 +20,7 @@ class MaintenanceLog extends \Eloquent {
   public function getDescriptionAttribute()
   {
     $data = json_decode($this->additional_data);
-    return $data->description ?: null;
+    return isset($data) ? $data->description : null;
   }
 
 
