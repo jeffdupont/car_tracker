@@ -58,12 +58,22 @@ class SendScheduledNotifications extends Command {
 				}
 			}
 
-			\Mail::send('emails.notification', [ 'due' => $due, 'overdue' => $overdue ], function($message) use ($users)
-			{
-				foreach( $users as $user => $email ) {
-			    $message->to($email, $user);
-				}
-			});
+			if( ! $this->option('debug') ) {
+				\Mail::send('emails.notification', [ 'due' => $due, 'overdue' => $overdue ], function($message) use ($users)
+				{
+					foreach( $users as $user => $email ) {
+				    $message->to($email, $user);
+					}
+				});
+			}
+			else {
+				\Mail::pretend('emails.notification', [ 'due' => $due, 'overdue' => $overdue ], function($message) use ($users)
+				{
+					foreach( $users as $user => $email ) {
+				    $message->to($email, $user);
+					}
+				});
+			}
 		}
 
 		$this->info('Done.');
@@ -81,16 +91,16 @@ class SendScheduledNotifications extends Command {
 	// 	];
 	// }
 
-	// /**
-	//  * Get the console command options.
-	//  *
-	//  * @return array
-	//  */
-	// protected function getOptions()
-	// {
-	// 	return [
-	// 		['example', null, InputOption::VALUE_OPTIONAL, 'An example option.', null],
-	// 	];
-	// }
+	/**
+	 * Get the console command options.
+	 *
+	 * @return array
+	 */
+	protected function getOptions()
+	{
+		return [
+			[ 'debug', null, InputOption::VALUE_OPTIONAL, 'Set to true if you don\'t want to send the emails.', null ],
+		];
+	}
 
 }

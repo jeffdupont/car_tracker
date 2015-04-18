@@ -61,6 +61,8 @@ class ScheduleRecurringAction extends Command {
         $next_dates = $recur->next(3, 'Y-m-d');
 
         foreach( $next_dates as $next_date ) {
+					$this->info('Checking ' . $next_date);
+					
           if( ! MaintenanceLog::where('car_id', $action->car_id)->where('scheduled_at', $next_date)->where('scheduled_action_id', $action->id)->exists() ) {
             // create the new maintenance action
             $log_action = new MaintenanceLog();
@@ -70,9 +72,12 @@ class ScheduleRecurringAction extends Command {
             $log_action->additional_data = json_encode([ 'description' => $action->details ]);
             $log_action->scheduled_at = $next_date;
             $log_action->scheduled_action_id = $action->id;
-            $log_action->save();
 
-            $this->info('Create scheduled action [' . $action->action . '] for car ' . $action->car->display . ' on ' . \Carbon\Carbon::parse($next_date)->format('l, F dS, Y') . '.');
+						if( ! $this->option('debug') ) {
+	            $log_action->save();
+						}
+
+            $this->info('Created scheduled action [' . $action->action . '] for car ' . $action->car->display . ' on ' . \Carbon\Carbon::parse($next_date)->format('l, F dS, Y') . '.');
           }
         }
       }
@@ -90,6 +95,18 @@ class ScheduleRecurringAction extends Command {
 	{
 		return [
 			[ 'car_id', InputArgument::OPTIONAL, 'The car id to schedule the recurring actions with.' ],
+		];
+	}
+
+	/**
+	 * Get the console command options.
+	 *
+	 * @return array
+	 */
+	protected function getOptions()
+	{
+		return [
+			[ 'debug', null, InputOption::VALUE_OPTIONAL, 'Set to true if you don\'t want to save the actions to the database.', null ],
 		];
 	}
 
