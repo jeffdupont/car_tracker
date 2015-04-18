@@ -66,7 +66,7 @@
       <label for="" class="right inline">Repeat On</label>
     </div>
     <div class="small-12 large-9 columns">
-      @include('scheduled_actions.weekdays')
+      @include('scheduled_actions.weekdays', [ 'type' => 'weekly' ])
     </div>
   </div>
 </div>
@@ -87,7 +87,7 @@
       <label for="" class="right inline">Repeat On</label>
     </div>
     <div class="small-12 large-9 columns">
-      @include('scheduled_actions.weekdays')
+      @include('scheduled_actions.weekdays', [ 'type' => 'biweekly' ])
     </div>
   </div>
 </div>
