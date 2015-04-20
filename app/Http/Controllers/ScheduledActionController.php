@@ -182,8 +182,9 @@ class ScheduledActionController extends Controller {
 				break;
 
 			case "quarterly":
-				$start_date = Request::get('start_date');
-			  $recur->start($start_date)->every( Request::get('day'), 'daysOfMonth' )->every( 3, 'months' );
+				$from_date = Request::get('start_date');
+				$start_date = \Carbon\Carbon::now()->day(Request::get('day'));
+			  $recur->start($start_date)->from($from_date)->every( 3, 'months' );
 				break;
 
 			case "yearly":
