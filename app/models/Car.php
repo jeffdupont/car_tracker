@@ -46,15 +46,15 @@ class Car extends \Eloquent {
   }
 
   function getScheduledLogsAttribute() {
-    return $this->maintenance_logs()->where('is_completed', false)->orderBy('scheduled_at', 'asc')->get();
+    return $this->maintenance_logs()->where('is_completed', false)->orderBy('scheduled_at', 'asc');
   }
 
   function getCompletedLogsAttribute() {
-    return $this->maintenance_logs()->where('is_completed', true)->orderBy('completed_at', 'desc')->get();
+    return $this->maintenance_logs()->where('is_completed', true)->orderBy('completed_at', 'desc');
   }
 
-  function getActiveScheduledActions() {
-    return $this->scheduled_actions()->where('is_active', true)->orderBy('updated_at', 'desc')->get();
+  function getActiveScheduledActionsAttribute() {
+    return $this->scheduled_actions()->where('is_active', true)->orderBy('updated_at', 'desc');
   }
 
 

@@ -40,8 +40,9 @@
     <a href="{{ URL::route('cars.scheduled_actions.create', [ 'car' => $car ]) }}" class="button success pull-right tiny"><i class="fa fa-plus"></i> Add Reminder</a>
     <h2>Scheduled Reminders</h2>
 
-    @include('scheduled_actions.list', [ 'scheduled_actions' => $car->getActiveScheduledActions() ])
+    @include('scheduled_actions.list', [ 'scheduled_actions' => $scheduled_actions ])
 
+    {!! $scheduled_actions->render() !!}
   </div>
 </div>
 @stop

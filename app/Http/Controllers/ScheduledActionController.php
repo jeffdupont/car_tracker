@@ -23,7 +23,7 @@ class ScheduledActionController extends Controller {
 		//
 		$car = Car::find($car_id);
 
-		return view('scheduled_actions.index')->with([ 'car' => $car, 'image_exists' => $storage->exists('images/' . $car->id . '.jpg') ]);
+		return view('scheduled_actions.index')->with([ 'car' => $car, 'scheduled_actions' => $car->active_scheduled_actions->paginate(10), 'image_exists' => $storage->exists('images/' . $car->id . '.jpg') ]);
 	}
 
 	/**

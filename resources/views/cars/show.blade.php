@@ -74,8 +74,18 @@
     <a href="{{ URL::route('cars.actions.create', $car->id) }}" class="button tiny secondary">Log Action</a>
     <a href="{{ URL::route('cars.scheduled_actions', $car->id) }}" class="button tiny secondary pull-right">Schedule Reminders</a>
 
-    @include('maintenance.log', [ 'maintenance_logs' => $car->scheduled_logs, 'type' => 'scheduled' ])
-    @include('maintenance.log', [ 'maintenance_logs' => $car->completed_logs, 'type' => 'completed' ])
+    <ul class="tabs" data-tab>
+      <li class="tab-title active"><a href="#panel1">Scheduled</a></li>
+      <li class="tab-title"><a href="#panel2">Completed</a></li>
+    </ul>
+    <div class="tabs-content">
+      <div class="content active" id="panel1">
+        @include('maintenance.log', [ 'maintenance_logs' => $car->scheduled_logs->paginate(10), 'type' => 'scheduled' ])
+      </div>
+      <div class="content" id="panel2">
+        @include('maintenance.log', [ 'maintenance_logs' => $car->completed_logs->paginate(10), 'type' => 'completed' ])
+      </div>
+    </div>
   </div>
 </div>
 @stop
