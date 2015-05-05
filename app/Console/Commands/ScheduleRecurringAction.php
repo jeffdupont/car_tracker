@@ -47,9 +47,9 @@ class ScheduleRecurringAction extends Command {
 
 		// get all active scheduled actions
 		if( ! empty($car_id) )
-      $scheduled_actions = ScheduledAction::where('car_id', $car_id)->get();
+      $scheduled_actions = ScheduledAction::where(['car_id' => $car_id, 'is_active' => true])->get();
     else
-      $scheduled_actions = ScheduledAction::all();
+      $scheduled_actions = ScheduledAction::where(['is_active' => true])->get();
 
     // loop through each action and check if it needs to be scheduled
     foreach( $scheduled_actions as $action ) {
@@ -62,7 +62,7 @@ class ScheduleRecurringAction extends Command {
 
         foreach( $next_dates as $next_date ) {
 					$this->info('Checking ' . $next_date);
-					
+
           if( ! MaintenanceLog::where('car_id', $action->car_id)->where('scheduled_at', $next_date)->where('scheduled_action_id', $action->id)->exists() ) {
             // create the new maintenance action
             $log_action = new MaintenanceLog();
