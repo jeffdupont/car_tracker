@@ -146,6 +146,11 @@ class ScheduledActionController extends Controller {
 	public function destroy($id)
 	{
 		//
+    $scheduled_action = ScheduledAction::find($id);
+    $scheduled_action->is_active = false;
+    $scheduled_action->save();
+
+    return redirect()->route('cars.scheduled_actions', [ $scheduled_action->car_id ])->with('success', 'Action updated successfully.');
 	}
 
 

@@ -13,7 +13,7 @@
 
     @include('users.list')
 
-    {{ $users->appends([ 'filter' => $filter ])->render() }}
+    {!! $users->appends([ 'filter' => $filter ])->render() !!}
   </div>
 </div>
 @stop

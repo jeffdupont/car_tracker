@@ -5,17 +5,19 @@
   <thead>
     <tr>
       <th>Scheduled Action</th>
-      <th>Type</th>
       <th></th>
     </tr>
   </thead>
   <tbody>
     @foreach($scheduled_actions as $action)
     <tr>
-      <td width="80%">{{ $action->action }}</td>
-      <td>{{ $action->type }}</td>
       <td>
+        {{ $action->action }}<br/>
+        <small>{{ $action->type }}</small>
+      </td>
+      <td class="text-right" nowrap="nowrap">
         <a href="{{ URL::route('cars.scheduled_actions.edit', $action->id) }}" class="button tiny secondary">Edit</a>
+        <a href="{{ URL::route('cars.scheduled_actions.destroy', $action->id) }}" class="button tiny alert">Delete</a>
       </td>
     </tr>
     @endforeach

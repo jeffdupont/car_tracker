@@ -124,8 +124,8 @@
     $(document).foundation();
     $(document).ready(function() {
       $(".alert-box").delay(4000).fadeOut(500);
-      $(".datepicker").datetimepicker({ format: 'Y-m-d', timepicker: false });
-      $(".datetimepicker").datetimepicker({ format: 'Y-m-d H:i' });
+      // $(".datepicker").datetimepicker({ format: 'Y-m-d', timepicker: false });
+      $(".datepicker").attr('type', 'date');
     });
   </script>
   @yield("script")

@@ -13,7 +13,7 @@
 
     @include('clients.list')
 
-    {{ $clients->appends([ 'filter' => $filter ])->render() }}
+    {!! $clients->appends([ 'filter' => $filter ])->render() !!}
   </div>
 </div>
 @stop

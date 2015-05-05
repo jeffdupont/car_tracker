@@ -7,7 +7,7 @@
 
     @include('maintenance.log', [ 'with_car' => true ])
 
-    {{ $maintenance_logs->render() }}
+    {!! $maintenance_logs->render() !!}
   </div>
 
   <div class="small-12 large-4 columns">

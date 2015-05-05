@@ -8,10 +8,12 @@
 
 @section('content')
 <div class="row">
-  <div class="small-12 columns">
+  <div class="small-12 large-4 columns">
     <div class="pull-left car-image-main">
       @include('cars.image')
     </div>
+  </div>
+  <div class="small-12 large-8 columns">
     <div>
       <a href="{{ URL::route('cars.qrcode', $car->id) }}" target="_blank" class="pull-right"><i class="fa fa-qrcode"></i> QR Code</a>
       <h1>{{ $car->display }}</h1>

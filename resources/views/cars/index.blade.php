@@ -13,7 +13,7 @@
 
     @include('cars.list')
 
-    {{ $cars->appends([ 'filter' => $filter ])->render() }}
+    {!! $cars->appends([ 'filter' => $filter ])->render() !!}
   </div>
 </div>
 @stop

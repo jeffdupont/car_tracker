@@ -53,6 +53,10 @@ class Car extends \Eloquent {
     return $this->maintenance_logs()->where('is_completed', true)->orderBy('completed_at', 'desc')->get();
   }
 
+  function getActiveScheduledActions() {
+    return $this->scheduled_actions()->where('is_active', true)->orderBy('updated_at', 'desc')->get();
+  }
+
 
 
   /*

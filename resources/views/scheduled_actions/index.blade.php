@@ -9,10 +9,12 @@
 
 @section('content')
 <div class="row">
-  <div class="small-12 columns">
+  <div class="small-12 large-4 columns">
     <div class="pull-left car-image-main">
-      @include('cars.image', [ 'show_form' => false ])
+      @include('cars.image')
     </div>
+  </div>
+  <div class="small-12 large-8 columns">
     <div>
       <a href="{{ URL::route('cars.qrcode', $car->id) }}" target="_blank" class="pull-right"><i class="fa fa-qrcode"></i> QR Code</a>
       <h1>{{ $car->display }}</h1>
@@ -38,7 +40,7 @@
     <a href="{{ URL::route('cars.scheduled_actions.create', [ 'car' => $car ]) }}" class="button success pull-right tiny"><i class="fa fa-plus"></i> Add Reminder</a>
     <h2>Scheduled Reminders</h2>
 
-    @include('scheduled_actions.list', [ 'scheduled_actions' => $car->scheduled_actions ])
+    @include('scheduled_actions.list', [ 'scheduled_actions' => $car->getActiveScheduledActions() ])
 
   </div>
 </div>

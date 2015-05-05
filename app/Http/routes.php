@@ -50,6 +50,7 @@ Route::group([ 'middleware' => 'auth' ], function()
 	Route::get('cars/scheduled_actions/{scheduled_actions}/edit', [ 'as' => 'cars.scheduled_actions.edit', 'uses' => 'ScheduledActionController@edit' ]);
 	Route::put('cars/scheduled_actions/{scheduled_actions}', [ 'as' => 'cars.scheduled_actions.update', 'uses' => 'ScheduledActionController@update' ]);
 	Route::patch('cars/scheduled_actions/{scheduled_actions}', [ 'uses' => 'ScheduledActionController@update' ]);
+  Route::get('cars/scheduled_actions/{scheduled_actions}/destroy', [ 'as' => 'cars.scheduled_actions.destroy', 'uses' => 'ScheduledActionController@destroy' ]);
 	//
 });
 
